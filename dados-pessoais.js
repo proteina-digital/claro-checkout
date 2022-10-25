@@ -1,6 +1,4 @@
-<script>
 var Webflow = Webflow || [];
-// const search = window.location.search;
 var cpf_valido = false;
 
 function consulta_cpf(cpf) {
@@ -316,4 +314,3 @@ Webflow.push(function () {
 });
 
 $(document).ajaxComplete(function (e, x, config) { if (config.url.indexOf('https://webflow.com/api/v1/form/') !== -1) { window.location.href = site + '/confirmacao' + window.location.search } });
-</script>
