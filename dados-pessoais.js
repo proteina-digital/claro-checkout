@@ -1,4 +1,3 @@
-<script>
 Webflow.push(function() {
     $('input[name="cpf"]').mask("000.000.000-00", { reverse: true });
     // $('input[name="rg"]').mask("00.000.000-0", { reverse: true });
@@ -247,4 +246,3 @@ function init_on_clicks() {
 }
 
 $(document).ajaxComplete(function (e, x, config) { if (config.url.indexOf('https://webflow.com/api/v1/form/') !== -1) { window.location.href = site + '/confirmacao' + search } });
-</script>
