@@ -32,8 +32,9 @@ Webflow.push(function() {
 
     inputs_on_changes()
     init_on_clicks()
-    carrega_card_selecionado()
     get_endereco()
+    carrega_card_selecionado()
+    
 
     var form = $("#wf-form-Email-Form");
     form.find("input").each(function () {
