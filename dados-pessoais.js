@@ -200,12 +200,12 @@ function inputs_on_changes() {
         if (radio == "dcc") {
             input_dcc.removeClass("hide");
             input_dcc.find("input").attr("required", "true");
-            dataLayer.push({ event: "evento_escolher_pagamento", v_evento: "evento_escolher_pagamento", v_etapa: "Etapa 5", v_valor: valor_plano_escolhido, v_plano: plano_escolhido, v_tipo_pagto: "Débito", v_tipo: sessionStorage.getItem("portabilidade_nome"), });
+            dataLayer.push({ event: "evento_escolher_pagamento", v_evento: "evento_escolher_pagamento", v_etapa: "Etapa 5", v_valor: sessionStorage.getItem("valor_plano_escolhido"), v_plano: sessionStorage.getItem("plano_escolhido"), v_tipo_pagto: "Débito", v_tipo: sessionStorage.getItem("portabilidade_nome"), });
         } else {
             input_dcc.addClass("hide");
             input_dcc.find("input").removeAttr("required");
             $("input[value='dcc']").removeAttr("checked");
-            dataLayer.push({ event: "evento_escolher_pagamento", v_evento: "evento_escolher_pagamento", v_etapa: "Etapa 5", v_valor: valor_plano_escolhido, v_plano: plano_escolhido, v_tipo_pagto: "Boleto", v_tipo: sessionStorage.getItem("portabilidade_nome"), });
+            dataLayer.push({ event: "evento_escolher_pagamento", v_evento: "evento_escolher_pagamento", v_etapa: "Etapa 5", v_valor: sessionStorage.getItem("valor_plano_escolhido"), v_plano: sessionStorage.getItem("plano_escolhido"), v_tipo_pagto: "Boleto", v_tipo: sessionStorage.getItem("portabilidade_nome"), });
         }
 
         sessionStorage.setItem("pagamento", radio);
