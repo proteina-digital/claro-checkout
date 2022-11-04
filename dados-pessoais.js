@@ -93,6 +93,28 @@ Webflow.push(function() {
         if (invalid) return false;
     });
 
+    $("input[type='tel'], input[type='text'], input[type='email']").one("keyup", function () {
+        let nome_campo = $(this).attr("name");
+        let etapa = "Etapa 3";
+        let v_tipo_pagto = "";
+        let v_tipo = "";
+        console.log("Input digitado:", nome_campo);
+        switch (nome_campo) {
+            case "complemento_endereco":
+            case "referencia":
+                etapa = "Etapa 4";
+                break;
+            case "banco":
+            case "agencia":
+            case "conta":
+                etapa = "Etapa 5";
+                v_tipo_pagto = "Débito";
+                v_tipo = sessionStorage.getItem("portabilidade_nome");
+        }
+        dataLayer.push({ event: "evento_preencher_campo", v_evento: "evento_preencher_" + nome_campo, v_nome_campo: nome_campo, v_etapa: etapa, v_valor: sessionStorage.getItem("valor_plano_escolhido"), v_plano: sessionStorage.getItem("plano_escolhido"), v_tipo_pagto: v_tipo_pagto, v_tipo: v_tipo, });
+    }
+    );
+
 });
 
 function get_endereco() {
