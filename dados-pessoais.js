@@ -1,4 +1,6 @@
 Webflow.push(function() {
+    $("input[name='celular']").val(sessionStorage.getItem("telefone"));
+
     $('input[name="cpf"]').mask("000.000.000-00", { reverse: true });
     // $('input[name="rg"]').mask("00.000.000-0", { reverse: true });
     var RGMaskBehavior = function (val) {
