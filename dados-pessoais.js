@@ -183,12 +183,14 @@ function carrega_card_selecionado() {
     var valor_plano_escolhido = sessionStorage.getItem("valor_plano_escolhido");
     var valor_plano_escolhido_nao_dccfd = sessionStorage.getItem("valor_plano_escolhido_nao_dccfd");
     var id_do_plano = sessionStorage.getItem("id_do_plano");
+    var plano_sku = sessionStorage.getItem("plano_sku");
     $(".dropdown-card-text").text(plano_escolhido);
     $(".dropdown-card-text-preco").text("R$ " + valor_plano_escolhido);
     $("input[name='plano_escolhido']").val(plano_escolhido);
     $("input[name='valor_plano_escolhido_nao_dccfd']").val(valor_plano_escolhido_nao_dccfd);
     $("input[name='valor_plano_escolhido']").val(valor_plano_escolhido);
     $("input[name='id_plano_fixo']").val(id_do_plano);
+    $("input[name='plano_sku']").val(plano_sku);
 
     dataLayer.push({ event: "evento_contratar_plano", v_evento: "evento_contratar_plano", v_etapa: "Etapa 2", v_valor: valor_plano_escolhido, v_plano: plano_escolhido, });
     dataLayer.push({ event: "plano_escolhido", etapa: "Checkout", plano: plano_escolhido, bairro: sessionStorage.getItem("bairro"), cidade: sessionStorage.getItem("cidade"), estado: sessionStorage.getItem("uf"), });
