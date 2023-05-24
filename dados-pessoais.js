@@ -191,6 +191,9 @@ function carrega_card_selecionado() {
     $("input[name='valor_plano_escolhido']").val(valor_plano_escolhido);
     $("input[name='id_plano_fixo']").val(id_do_plano);
     $("input[name='plano_sku']").val(plano_sku);
+    
+    $("input[name='plano_internet']").val(sessionStorage.getItem('plano_internet'));
+    $("input[name='plano_tv']").val(sessionStorage.getItem('plano_tv'));
 
     dataLayer.push({ event: "evento_contratar_plano", v_evento: "evento_contratar_plano", v_etapa: "Etapa 2", v_valor: valor_plano_escolhido, v_plano: plano_escolhido, });
     dataLayer.push({ event: "plano_escolhido", etapa: "Checkout", plano: plano_escolhido, bairro: sessionStorage.getItem("bairro"), cidade: sessionStorage.getItem("cidade"), estado: sessionStorage.getItem("uf"), });
