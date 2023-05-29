@@ -194,6 +194,7 @@ function carrega_card_selecionado() {
     
     $("input[name='plano_internet']").val(sessionStorage.getItem('plano_internet'));
     $("input[name='plano_tv']").val(sessionStorage.getItem('plano_tv'));
+    $("input[name='preco_combo']").val(sessionStorage.getItem('preco_combo'));
 
     dataLayer.push({ event: "evento_contratar_plano", v_evento: "evento_contratar_plano", v_etapa: "Etapa 2", v_valor: valor_plano_escolhido, v_plano: plano_escolhido, });
     dataLayer.push({ event: "plano_escolhido", etapa: "Checkout", plano: plano_escolhido, bairro: sessionStorage.getItem("bairro"), cidade: sessionStorage.getItem("cidade"), estado: sessionStorage.getItem("uf"), });
