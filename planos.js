@@ -1,15 +1,14 @@
 function find_selecao_by_id(id_tv, id_internet, id_celular = 0) {
-  // var id = tv, internet, 
   var id_selecao = id_tv + '_' + id_internet + '_' + id_celular
-  var _selecoes = sessionStorage.getItem('selecoes') || []
-  for (const elemento of _selecoes) {
-    const elementoChave = Object.keys(elemento)[0]; // Obtém a chave do elemento
-    if (elementoChave === id_selecao) {
-      return elemento[elementoChave]; // Retorna o valor correspondente à chave encontrada
+  var _selecoes = JSON.parse(sessionStorage.getItem('selecoes'))
+  for (let i = 0; i < _selecoes.length; i++) {
+    if (_selecoes[i].key === id_selecao) {
+        return _selecoes[i];
     }
-  }
+}
   return null;
 }
+
 
 function avanca_etapa_3(card_escolhido) {
  if (!card_escolhido.length) {
@@ -33,7 +32,7 @@ function avanca_etapa_3(card_escolhido) {
             name: card_escolhido.attr("data-nome-plano"),
             price: card_escolhido.find('.preco-combo').attr('preco-combo'),
             price_nao_dccfd: card_escolhido.find("[data-preco_nao_dccfd]").text(),
-            kind: 'internet',
+            kind: 'internet'
         }))
     }
 
@@ -44,7 +43,7 @@ function avanca_etapa_3(card_escolhido) {
             name: card_escolhido.attr("data-nome-plano"),
             price: card_escolhido.find('.preco-combo').attr('preco-combo'),
             price_nao_dccfd: card_escolhido.find("[data-preco_nao_dccfd]").text(),
-            kind: 'tv',
+            kind: 'tv'
         }))
     }
 
@@ -52,24 +51,44 @@ function avanca_etapa_3(card_escolhido) {
         var plano_i = JSON.parse(sessionStorage.getItem('planos')).find(item => item.nome == card_escolhido.attr('data-internet'))
         var plano_tv = JSON.parse(sessionStorage.getItem('planos_tv')).find(item => item.nome == card_escolhido.attr('data-tv'))
         var selecao = find_selecao_by_id(plano_tv.id, plano_i.id, 0)
-        console.log('selecao', selecao)
-        sessionStorage.setItem('plano_internet', JSON.stringify({
-            sku: $('[data-nome-plano="'+ card_escolhido.attr("data-internet") +'"]').attr('data-sku'),
-            providerId: plano_i.id,
-            name: plano_i.nome,
-            price: plano_i.preco,
-            price_nao_dccfd: plano_i.preco_nao_dccfd,
-            kind: 'internet',
-        }))
-        sessionStorage.setItem('plano_tv', JSON.stringify({
-            sku: $('[data-nome-plano="'+ card_escolhido.attr("data-tv") +'"]').attr('data-sku'),
-            providerId: plano_tv.id,
-            name: plano_tv.nome,
-            price: plano_tv.preco,
-            price_nao_dccfd: plano_tv.preco_nao_dccfd,
-            kind: 'tv',
-        }))
-        sessionStorage.setItem('preco_combo', card_escolhido.find('[data-preco-combo]').text())
+        var plano_i_formatted = {
+          sku: $('[data-nome-plano="'+ card_escolhido.attr("data-internet") +'"]').attr('data-sku'),
+          providerId: plano_i.id,
+          name: plano_i.nome,
+          price: plano_i.preco,
+          price_nao_dccfd: plano_i.preco_nao_dccfd,
+          kind: 'internet',
+          promotions: []
+      }
+        var plano_tv_formatted = {
+          sku: $('[data-nome-plano="'+ card_escolhido.attr("data-tv") +'"]').attr('data-sku'),
+          providerId: plano_tv.id,
+          name: plano_tv.nome,
+          price: plano_tv.preco,
+          price_nao_dccfd: plano_tv.preco_nao_dccfd,
+          kind: 'tv',
+          promotions: []
+      }
+
+      if(selecao) {
+        if(selecao.internet) {
+          plano_i_formatted.promotions = [{
+            price: selecao.internet.preco,
+            validity: selecao.internet.adesaoParcelas
+          }]
+        }
+
+        if(selecao.tv) {
+          plano_tv_formatted.promotions = [{
+            price: selecao.tv.preco,
+            validity: selecao.tv.adesaoParcelas
+          }]
+        }
+      }
+
+      sessionStorage.setItem('plano_internet', JSON.stringify(plano_i_formatted))
+      sessionStorage.setItem('plano_tv', JSON.stringify(plano_tv_formatted))
+      sessionStorage.setItem('preco_combo', card_escolhido.find('[data-preco-combo]').text())
   }
 
   sessionStorage.removeItem('etapa')
