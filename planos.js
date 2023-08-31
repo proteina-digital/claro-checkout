@@ -49,10 +49,10 @@ function avanca_etapa_3(card_escolhido) {
     }
 
     else if(card_escolhido.attr("data-tipo-plano") == 'combo') {
-        var selecao = find_selecao_by_id(plano_tv.id, plano_i.id, 0)
-        console.log('selecao', selecao)
         var plano_i = JSON.parse(sessionStorage.getItem('planos')).find(item => item.nome == card_escolhido.attr('data-internet'))
         var plano_tv = JSON.parse(sessionStorage.getItem('planos_tv')).find(item => item.nome == card_escolhido.attr('data-tv'))
+        var selecao = find_selecao_by_id(plano_tv.id, plano_i.id, 0)
+        console.log('selecao', selecao)
         sessionStorage.setItem('plano_internet', JSON.stringify({
             sku: $('[data-nome-plano="'+ card_escolhido.attr("data-internet") +'"]').attr('data-sku'),
             providerId: plano_i.id,
