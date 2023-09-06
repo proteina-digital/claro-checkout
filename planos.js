@@ -47,8 +47,8 @@ function avanca_etapa_3(card_escolhido) {
 
         if(oferta && oferta.pfdd) {
           promotions.push({
-            price: oferta.pfdd[0].preco,
-            validity:  oferta.pfdd[0].ate
+            price: oferta.pfdd.periodo[0].preco,
+            validity:  oferta.pfdd.periodo[0].ate
           })
         }
       
