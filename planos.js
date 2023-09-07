@@ -27,7 +27,16 @@ function avanca_etapa_3(card_escolhido) {
 
     if(card_escolhido.attr("data-tipo-plano") == 'internet') {
         var promotions = [];
-        // var plano_i_session = JSON.parse(sessionStorage.getItem('planos')).find(item => item.nome == card_escolhido.attr('data-nome-plano'))
+        var plano_i_session = JSON.parse(sessionStorage.getItem('planos')).find(item => item.nome == card_escolhido.attr('data-nome-plano'))
+        var oferta = JSON.parse(sessionStorage.getItem('ofertas')).find(item => item.id == plano_i_session.ofertaid)
+        
+        if(oferta && oferta.pfdd) {
+          promotions.push({
+            price: oferta.pfdd.periodo[0].preco,
+            validity:  oferta.pfdd.periodo[0].ate
+          })
+        }
+        
         sessionStorage.setItem('plano_internet', JSON.stringify({
             sku: card_escolhido.attr("data-sku"),
             providerId: card_escolhido.attr('data-id'),
