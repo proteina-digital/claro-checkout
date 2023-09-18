@@ -15,7 +15,7 @@ function atualiza_plano_no_banco_de_abandonos(plano, valores = []) {
     var cep = sessionStorage.getItem('cep_')
 
     $.ajax({
-        url: "https://formularios.proteina.digital/escale/claro_checkout/claro_abandono_v2.php",
+        url: "https://formularios.proteina.digital/escale/claro_checkout/abandono/claro_abandono_v2.php",
         dataType: 'text',
         type: 'post',
         contentType: 'application/x-www-form-urlencoded',
