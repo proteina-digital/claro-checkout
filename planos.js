@@ -25,7 +25,7 @@ function atualiza_plano_no_banco_de_abandonos(plano, valores = []) {
             cep: cep,
             telefone: telefone,
             action: 'update',
-            receber_ligacao: 0,
+            receber_ligacao: 1,
             valores: JSON.stringify(valores)
         },
         success: function (dados) {
