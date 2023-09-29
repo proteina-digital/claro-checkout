@@ -2,7 +2,7 @@ function find_selecao_by_id(id_tv, id_internet, id_celular = 0) {
   var id_selecao = id_tv + '_' + id_internet + '_' + id_celular
   var _selecoes = JSON.parse(sessionStorage.getItem('selecoes'))
   for (let i = 0; i < _selecoes.length; i++) {
-    if (_selecoes[i].key === id_selecao) {
+    if (_selecoes[i].key == id_selecao) {
         return _selecoes[i];
     }
 }
