@@ -8,8 +8,6 @@ function get_selecoes_validas() {
         // || (selecao.celularId && selecao.internetId);
     });
 
-    console.log(combos_validos.length)
-
     combos_validos.forEach(function(combo, index) {
         var slide_dom_item = $('[data-combo-slide]').first();
         slide_dom_item.removeAttr('aria-label')
@@ -63,7 +61,6 @@ function get_internets_validas() {
         // deu ruim
         if(!slide_dom_item) return;
         if(index == 0) {
-            console.log(internet.id)
             var card = slide_dom_item.find('[data-id]')
             card.attr('data-id', internet.id)
             // adicionar outros atributos
@@ -97,7 +94,6 @@ function get_tvs_validas() {
         // deu ruim
         if(!slide_dom_item) return;
         if(index == 0) {
-            console.log(tv.id)
             var card = slide_dom_item.find('[data-id]')
             card.attr('data-id', tv.id)
             // adicionar outros atributos
@@ -126,7 +122,7 @@ function monta_preco(produto, ofertas, card) {
             return oferta.id == produto.ofertaId;
         })
 
-        if(oferta_atual) {
+        if(oferta_atual && oferta_atual[0] && oferta_atual[0].pfdd) {
             var preco = oferta_atual[0].pfdd.periodo[0].preco
             var meses = oferta_atual[0].pfdd.periodo[0].ate
             var mes_ou_meses;
