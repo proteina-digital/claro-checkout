@@ -94,7 +94,7 @@ function get_internets_validas() {
         $('[data-internet-slide]').parent().next('.left-arrow-2').next('.right-arrow-2').removeClass('show')
     }
 
-    if (combos_validos.length == 0) {
+    if (internets.length == 0) {
         $("[data-tab-for='internet']").hide();
         $("[data-tab='internet']").hide();
     }
@@ -137,7 +137,7 @@ function get_tvs_validas() {
         $('[data-tv-slide]').parent().next('.left-arrow-2').next('.right-arrow-2').removeClass('show')
     }
 
-    if (combos_validos.length == 0) {
+    if (tvs.length == 0) {
         $("[data-tab-for='tv']").hide();
         $("[data-tab='tv']").hide();
     }
