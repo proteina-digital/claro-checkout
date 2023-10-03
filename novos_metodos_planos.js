@@ -46,6 +46,11 @@ function get_selecoes_validas() {
 
     });
 
+    if($('[data-combo-slide]').length <= 3) {
+        $('[data-combo-slide]').parent().next('.left-arrow-2').removeClass('show')
+        $('[data-combo-slide]').parent().next('.left-arrow-2').next('.right-arrow-2').removeClass('show')
+    }
+
     Webflow.require('slider').redraw();
 }
 
@@ -79,6 +84,11 @@ function get_internets_validas() {
 
     });
 
+    if($('[data-internet-slide]').length <= 3) {
+        $('[data-internet-slide]').parent().next('.left-arrow-2').removeClass('show')
+        $('[data-internet-slide]').parent().next('.left-arrow-2').next('.right-arrow-2').removeClass('show')
+    }
+
     Webflow.require('slider').redraw();
 }
 
@@ -111,6 +121,11 @@ function get_tvs_validas() {
         }
 
     });
+
+    if($('[data-tv-slide]').length <= 3) {
+        $('[data-tv-slide]').parent().next('.left-arrow-2').removeClass('show')
+        $('[data-tv-slide]').parent().next('.left-arrow-2').next('.right-arrow-2').removeClass('show')
+    }
 
     Webflow.require('slider').redraw();
 }
