@@ -30,7 +30,7 @@ function get_selecoes_validas() {
             card.find('[data-celular]').next().hide();
             var valor_total = calcula_valor_total_2(combo, internet, tv)
             card.find('[data-preco-combo]').text(valor_total).attr("data-preco-combo", valor_total);
-            card.attr('data-preco-numero', calcula_valor_total_2(combo, internet, tv, true))
+            slide_dom_item.attr('data-preco-numero', calcula_valor_total_2(combo, internet, tv, true))
         } else {
             var clone = slide_dom_item.clone();
             var card = clone.find('[data-combo-id]')
@@ -42,7 +42,7 @@ function get_selecoes_validas() {
             card.find('[data-celular]').next().hide();
             var valor_total = calcula_valor_total_2(combo, internet, tv)
             card.find('[data-preco-combo]').text(valor_total).attr("data-preco-combo", valor_total);
-            card.attr('data-preco-numero', calcula_valor_total_2(combo, internet, tv, true))
+            slide_dom_item.attr('data-preco-numero', calcula_valor_total_2(combo, internet, tv, true))
             clone.appendTo(slider_mask);
         }
 
