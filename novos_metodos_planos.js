@@ -147,7 +147,7 @@ function get_tvs_validas() {
 
 function monta_preco(produto, ofertas, card) {
     var preco_normal = (produto.preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-    var preco_nao_dccfd = (produto.preco_nao_dccfd / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    var preco_nao_dccfd = ((produto.preco + 500) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
     if(produto.ofertaId) {
         var oferta_atual = ofertas.filter(function(oferta) {
             return oferta.id == produto.ofertaId;
