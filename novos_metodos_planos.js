@@ -147,7 +147,7 @@ function get_tvs_validas() {
 
 function monta_preco(produto, ofertas, card) {
     var preco_normal = (produto.preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-    var preco_nao_dccfd = ((preco_normal + 500) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    var preco_nao_dccfd = (produto.preco_nao_dccfd / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
     if(produto.ofertaId) {
         var oferta_atual = ofertas.filter(function(oferta) {
             return oferta.id == produto.ofertaId;
@@ -155,7 +155,7 @@ function monta_preco(produto, ofertas, card) {
 
         if(oferta_atual && oferta_atual[0] && oferta_atual[0].pfdd) {
             var preco = oferta_atual[0].pfdd.periodo[0].preco
-            var preco_nao_dccfd = oferta_atual[0].pfdd.periodo[0].preco + 500
+
             var meses = oferta_atual[0].pfdd.periodo[0].ate
             var mes_ou_meses;
             if(meses == 1) {
@@ -171,8 +171,9 @@ function monta_preco(produto, ofertas, card) {
                 card.find('[data-oferta-obs]').html('<strong>'+ obs +'</strong>');
             } else {
                 // mostro o preço da promoção
+                preco_nao_dccfd = (preco + 500)
+                preco_nao_dccfd = (preco_nao_dccfd / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
                 preco = (preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-                preco_nao_dccfd = ((preco + 500) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
                 card.find('[data-valor-preco]').text(preco).attr("data-valor-preco", preco);
                 card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
                 var obs = "Valor promocional por " + meses + mes_ou_meses
