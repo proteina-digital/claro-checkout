@@ -147,7 +147,7 @@ function get_tvs_validas() {
 
 function monta_preco(produto, ofertas, card) {
     var preco_normal = (produto.preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-    var preco_nao_dccfd = ((produto.preco + 500) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    var preco_nao_dccfd = ((preco_normal + 500) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
     if(produto.ofertaId) {
         var oferta_atual = ofertas.filter(function(oferta) {
             return oferta.id == produto.ofertaId;
@@ -155,6 +155,7 @@ function monta_preco(produto, ofertas, card) {
 
         if(oferta_atual && oferta_atual[0] && oferta_atual[0].pfdd) {
             var preco = oferta_atual[0].pfdd.periodo[0].preco
+            var preco_nao_dccfd = oferta_atual[0].pfdd.periodo[0].preco + 500
             var meses = oferta_atual[0].pfdd.periodo[0].ate
             var mes_ou_meses;
             if(meses == 1) {
@@ -164,6 +165,7 @@ function monta_preco(produto, ofertas, card) {
             }
             if (preco == 0) {
                 // mostro o preço normal com a mensagem que é grátis no primeiro mês
+                preco = (preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
                 card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal);
                 card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
                 var obs = "Grátis por " + meses + mes_ou_meses
