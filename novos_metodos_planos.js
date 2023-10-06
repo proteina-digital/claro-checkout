@@ -165,14 +165,14 @@ function monta_preco(produto, ofertas, card) {
             if (preco == 0) {
                 // mostro o preço normal com a mensagem que é grátis no primeiro mês
                 card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal);
-                card.find('[ddata-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
+                card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
                 var obs = "Grátis por " + meses + mes_ou_meses
                 card.find('[data-oferta-obs]').html('<strong>'+ obs +'</strong>');
             } else {
                 // mostro o preço da promoção
                 preco = (preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
                 card.find('[data-valor-preco]').text(preco).attr("data-valor-preco", preco);
-                card.find('[ddata-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
+                card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
                 var obs = "Valor promocional por " + meses + mes_ou_meses
                 card.find('[data-oferta-obs]').text(obs);
             }
