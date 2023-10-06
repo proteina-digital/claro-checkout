@@ -172,7 +172,7 @@ function monta_preco(produto, ofertas, card) {
             } else {
                 // mostro o preço da promoção
                 preco = (preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-                preco_nao_dccfd = (preco_nao_dccfd / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+                preco_nao_dccfd = ((preco + 500) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
                 card.find('[data-valor-preco]').text(preco).attr("data-valor-preco", preco);
                 card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
                 var obs = "Valor promocional por " + meses + mes_ou_meses
