@@ -178,9 +178,11 @@ function monta_preco(produto, ofertas, card) {
             }
         } else {
             card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal);
+            card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
         }
     } else {
         card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal);
+        card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
     }
 }
 
