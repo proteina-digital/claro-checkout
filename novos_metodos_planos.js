@@ -23,6 +23,8 @@ function get_selecoes_validas() {
         if(index == 0) {
             var card = slide_dom_item.find('[data-combo-id]')
             card.attr('data-combo-id', combo.id)
+            card.attr('data-internet', internet.nome)
+            card.attr('data-tv', tv.nome)
             // adicionar outros atributos
             card.find('[data-megas]').text(internet.nome)
             card.find('[data-tv]').text(tv.nome)
@@ -73,6 +75,7 @@ function get_internets_validas() {
         if(index == 0) {
             var card = slide_dom_item.find('[data-id]')
             card.attr('data-id', internet.id)
+            card.attr('data-nome-plano', internet.nome)
             // adicionar outros atributos
             card.find('[data-titulo]').text(internet.nome)
             monta_preco(internet, ofertas, card)
@@ -80,6 +83,7 @@ function get_internets_validas() {
             var clone = slide_dom_item.clone();
             var card = clone.find('[data-id]')
             card.attr('data-id', internet.id)
+            card.attr('data-nome-plano', internet.nome)
             card.find('[data-melhor-oferta]').remove();
 
             card.find('[data-titulo]').text(internet.nome)
@@ -116,6 +120,7 @@ function get_tvs_validas() {
         if(index == 0) {
             var card = slide_dom_item.find('[data-id]')
             card.attr('data-id', tv.id)
+            card.attr('data-nome-plano', tv.nome)
             // adicionar outros atributos
             card.find('[data-titulo]').text(tv.nome)
             monta_preco(tv, ofertas, card)
@@ -123,6 +128,7 @@ function get_tvs_validas() {
             var clone = slide_dom_item.clone();
             var card = clone.find('[data-id]')
             card.attr('data-id', tv.id)
+            card.attr('data-nome-plano', tv.nome)
             card.find('[data-melhor-oferta]').remove();
 
             card.find('[data-titulo]').text(tv.nome)
@@ -213,6 +219,8 @@ function calcula_valor_total_2(combo, internet, tv, retorna_numero = false) {
 }
 
 function avanca_etapa_3_novo(card_escolhido) {
+    console.log(card_escolhido.attr("data-nome-plano"))
+    return;
   if (!card_escolhido.length) {
       $('#loadingspinner').hide(); console.log('card invalido')
   } else {
