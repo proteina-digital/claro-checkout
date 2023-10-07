@@ -219,8 +219,6 @@ function calcula_valor_total_2(combo, internet, tv, retorna_numero = false) {
 }
 
 function avanca_etapa_3_novo(card_escolhido) {
-    console.log(card_escolhido.attr("data-nome-plano"))
-    return;
   if (!card_escolhido.length) {
       $('#loadingspinner').hide(); console.log('card invalido')
   } else {
