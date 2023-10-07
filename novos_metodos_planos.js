@@ -154,6 +154,8 @@ function monta_preco(produto, ofertas, card) {
         })
 
         if(oferta_atual && oferta_atual[0] && oferta_atual[0].pfdd) {
+            // var preco_sem_promo = preco_normal
+            // var preco_sem_promo_dccfd = preco_nao_dccfd
             var preco = oferta_atual[0].pfdd.periodo[0].preco
 
             var meses = oferta_atual[0].pfdd.periodo[0].ate
@@ -165,8 +167,8 @@ function monta_preco(produto, ofertas, card) {
             }
             if (preco == 0) {
                 // mostro o preço normal com a mensagem que é grátis no primeiro mês
-                card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal);
-                card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
+                card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal.replace(/[^0-9,]/g,''));
+                card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd.replace(/[^0-9,]/g,''));
                 var obs = "Grátis por " + meses + mes_ou_meses
                 card.find('[data-oferta-obs]').html('<strong>'+ obs +'</strong>');
             } else {
@@ -174,18 +176,20 @@ function monta_preco(produto, ofertas, card) {
                 preco_nao_dccfd = (preco + 500)
                 preco_nao_dccfd = (preco_nao_dccfd / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
                 preco = (preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-                card.find('[data-valor-preco]').text(preco).attr("data-valor-preco", preco);
-                card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
+                card.find('[data-valor-preco]').text(preco).attr("data-valor-preco", preco.replace(/[^0-9,]/g,''));
+                card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd.replace(/[^0-9,]/g,''));
                 var obs = "Valor promocional por " + meses + mes_ou_meses
                 card.find('[data-oferta-obs]').text(obs);
             }
         } else {
-            card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal);
-            card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
+            card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal.replace(/[^0-9,]/g,''));
+            card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd.replace(/[^0-9,]/g,''));
         }
     } else {
-        card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal);
-        card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd);
+        card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal.replace(/[^0-9,]/g,''));
+        card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd.replace(/[^0-9,]/g,''));
+        card.find('[data-oferta-obs]').text('');
+
     }
 }
 
