@@ -297,7 +297,7 @@ function avanca_etapa_3_novo(card_escolhido) {
               providerId: plano_tv.id,
               name: plano_tv.nome,
               price: plano_tv.preco,
-              price_nao_dccfd: (plano_i.preco_nao_dccfd && plano_i.preco_nao_dccfd != 'undefined') ? plano_i.preco_nao_dccfd : plano_i.price_nao_dccfd,
+              price_nao_dccfd: (plano_tv.preco_nao_dccfd && plano_tv.preco_nao_dccfd != 'undefined') ? plano_tv.preco_nao_dccfd : plano_tv.price_nao_dccfd,
               kind: 'tv',
               promotions: []
           }
