@@ -36,6 +36,8 @@ function get_selecoes_validas() {
             var clone = slide_dom_item.clone();
             var card = clone.find('[data-combo-id]')
             card.attr('data-combo-id', combo.id)
+            card.attr('data-internet', internet.nome)
+            card.attr('data-tv', tv.nome)
 
             card.find('[data-megas]').text(internet.nome)
             card.find('[data-tv]').text(tv.nome)
