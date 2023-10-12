@@ -280,6 +280,7 @@ function avanca_etapa_3_novo(card_escolhido) {
       }
 
       else if (card_escolhido.attr("data-tipo-plano") == 'combo') {
+        
           var plano_i = JSON.parse(sessionStorage.getItem('planos')).find(item => item.nome == card_escolhido.attr('data-internet'))
           var plano_tv = JSON.parse(sessionStorage.getItem('planos_tv')).find(item => item.nome == card_escolhido.attr('data-tv'))
           var selecao = find_selecao_by_id(plano_tv.id, plano_i.id, 0)
@@ -307,12 +308,16 @@ function avanca_etapa_3_novo(card_escolhido) {
                       price: selecao.internet.preco,
                       validity: selecao.internet.adesaoParcelas
                   }]
+                  plano_i_formatted.price = selecao.internet.preco
+                  plano_i_formatted.price_nao_dccfd = selecao.internet.preco + 500
               }
               if (selecao.tv) {
                   plano_tv_formatted.promotions = [{
                       price: selecao.tv.preco,
                       validity: selecao.tv.adesaoParcelas
                   }]
+                  plano_tv_formatted.price = selecao.tv.preco
+                  plano_tv_formatted.price_nao_dccfd = selecao.tv.preco + 500
               }
           }
           sessionStorage.setItem('plano_internet', JSON.stringify(plano_i_formatted))
