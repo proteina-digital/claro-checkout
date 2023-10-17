@@ -78,6 +78,7 @@ function get_internets_validas() {
             var card = slide_dom_item.find('[data-id]')
             card.attr('data-id', internet.id)
             card.attr('data-nome-plano', internet.nome)
+            if(internet.nome) { card.attr('data-plano-num', internet.nome.replace(/\D/g,'')) }
             // adicionar outros atributos
             card.find('[data-titulo]').text(internet.nome)
             monta_preco(internet, ofertas, card)
