@@ -78,7 +78,9 @@ function get_internets_validas() {
             var card = slide_dom_item.find('[data-id]')
             card.attr('data-id', internet.id)
             card.attr('data-nome-plano', internet.nome)
-            if(internet.nome) { card.find('[data-plano]').attr('data-plano', internet.nome.replace(/\D/g,'')) }
+            if(internet.nome) {
+                document.querySelector('[data-id="' +  internet.id + '"] [data-plano]').setAttribute('data-plano',  internet.nome.replace(/\D/g,''))
+            }
             // adicionar outros atributos
             card.find('[data-titulo]').text(internet.nome)
             monta_preco(internet, ofertas, card)
@@ -87,7 +89,9 @@ function get_internets_validas() {
             var card = clone.find('[data-id]')
             card.attr('data-id', internet.id)
             card.attr('data-nome-plano', internet.nome)
-            if(internet.nome) { card.find('[data-plano]').attr('data-plano', internet.nome.replace(/\D/g,'')) }
+            if(internet.nome) {
+                document.querySelector('[data-id="' +  internet.id + '"] [data-plano]').setAttribute('data-plano',  internet.nome.replace(/\D/g,''))
+            }
             card.find('[data-melhor-oferta]').remove();
 
             card.find('[data-titulo]').text(internet.nome)
