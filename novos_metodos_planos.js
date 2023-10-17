@@ -87,6 +87,7 @@ function get_internets_validas() {
             var card = clone.find('[data-id]')
             card.attr('data-id', internet.id)
             card.attr('data-nome-plano', internet.nome)
+            if(internet.nome) { card.find('[data-plano]').attr('data-plano', internet.nome.replace(/\D/g,'')) }
             card.find('[data-melhor-oferta]').remove();
 
             card.find('[data-titulo]').text(internet.nome)
