@@ -79,7 +79,9 @@ function get_internets_validas() {
             card.attr('data-id', internet.id)
             card.attr('data-nome-plano', internet.nome)
             if(internet.nome) {
-                document.querySelector('[data-id="' +  internet.id + '"] [data-plano]').setAttribute('data-plano',  internet.nome.replace(/\D/g,''))
+                setTimeout(function() {
+                  document.querySelector('[data-id="' +  internet.id + '"] [data-plano]').setAttribute('data-plano',  internet.nome.replace(/\D/g,''))
+                }, 200)
             }
             // adicionar outros atributos
             card.find('[data-titulo]').text(internet.nome)
@@ -90,7 +92,9 @@ function get_internets_validas() {
             card.attr('data-id', internet.id)
             card.attr('data-nome-plano', internet.nome)
             if(internet.nome) {
-                document.querySelector('[data-id="' +  internet.id + '"] [data-plano]').setAttribute('data-plano',  internet.nome.replace(/\D/g,''))
+                setTimeout(function() {
+                  document.querySelector('[data-id="' +  internet.id + '"] [data-plano]').setAttribute('data-plano',  internet.nome.replace(/\D/g,''))
+                }, 200)
             }
             card.find('[data-melhor-oferta]').remove();
 
