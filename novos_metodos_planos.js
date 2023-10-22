@@ -31,6 +31,7 @@ function get_selecoes_validas() {
 
         if(index == 0) {
             var card = slide_dom_item.find('[data-combo-id]')
+            card.attr('data-cod-plano', transformString(tv) + '_' + transformString(internet))
             card.attr('data-combo-id', combo.id)
             card.attr('data-internet', internet.nome)
             card.attr('data-tv', tv.nome)
@@ -44,6 +45,7 @@ function get_selecoes_validas() {
         } else {
             var clone = slide_dom_item.clone();
             var card = clone.find('[data-combo-id]')
+            card.attr('data-cod-plano', transformString(tv) + '_' + transformString(internet))
             card.attr('data-combo-id', combo.id)
             card.attr('data-internet', internet.nome)
             card.attr('data-tv', tv.nome)
@@ -135,6 +137,7 @@ function get_tvs_validas() {
             var card = slide_dom_item.find('[data-id]')
             card.attr('data-id', tv.id)
             card.attr('data-nome-plano', tv.nome)
+            card.attr('data-cod-plano', transformString(tv.nome))
             // adicionar outros atributos
             card.find('[data-titulo]').text(tv.nome)
             monta_preco(tv, ofertas, card)
@@ -143,6 +146,7 @@ function get_tvs_validas() {
             var card = clone.find('[data-id]')
             card.attr('data-id', tv.id)
             card.attr('data-nome-plano', tv.nome)
+            card.attr('data-cod-plano', transformString(tv.nome))
             card.find('[data-melhor-oferta]').remove();
 
             card.find('[data-titulo]').text(tv.nome)
