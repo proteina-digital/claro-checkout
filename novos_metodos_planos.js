@@ -1,3 +1,12 @@
+function transformString(input) {
+    if(!input) return '';
+  var withoutSpaces = input.replace(/\s/g, '');
+  var withUnderscores = withoutSpaces.replace(/ /g, '_');
+  var withMAIS = withUnderscores.replace(/\+/g, 'MAIS');
+  var upperCase = withMAIS.toUpperCase();
+  return upperCase.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
 function get_selecoes_validas() {
     var internets = JSON.parse(sessionStorage.getItem('planos'))
     var tvs = JSON.parse(sessionStorage.getItem('planos_tv'))
@@ -78,6 +87,7 @@ function get_internets_validas() {
             var card = slide_dom_item.find('[data-id]')
             card.attr('data-id', internet.id)
             card.attr('data-nome-plano', internet.nome)
+            card.attr('data-cod-plano', transformString(internet.nome))
             card.find('[data-titulo]').text(internet.nome)
             if(internet.nome) { card.find('[data-plano]').attr('data-plano', internet.nome.replace(/\D/g,'')) }
             monta_preco(internet, ofertas, card)
@@ -86,6 +96,7 @@ function get_internets_validas() {
             var card = clone.find('[data-id]')
             card.attr('data-id', internet.id)
             card.attr('data-nome-plano', internet.nome)
+            card.attr('data-cod-plano', transformString(internet.nome))
             card.find('[data-melhor-oferta]').remove();
 
             card.find('[data-titulo]').text(internet.nome)
