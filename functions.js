@@ -193,6 +193,67 @@ function formata_resposta(resposta, somente_autorizados = true) {
     return [internet, tv_lista, celular_lista, telefone_lista];
 }
 
+function popula_cards(tipo){
+    if(tipo == 'planos_internet'){
+    	var data_card = "data-card-internet";
+    } else if (tipo == 'planos_tv') {
+    	var data_card = "data-card-tv";
+    } else if (tipo == 'planos_celular') {
+    	var data_card = "data-card-cel";
+    } else if (tipo == 'planos_fixo') {
+    	var data_card = "data-card-fixo";
+    }else{
+    	return;
+    }
+    
+    if( sessionStorage.getItem(tipo) !== null ){
+    	var planos = JSON.parse(sessionStorage.getItem(tipo));
+    
+    
+    	if( jQuery("div["+data_card+"]").length > 0 ){
+    		jQuery("div["+data_card+"]").each(function (index, element) {
+    			var card = $(this);
+    			var controle_ids = false;
+    
+    			card.show();
+    			Webflow.require('slider').redraw();
+    
+    			if(card.attr(data_card)){
+    				var card_prod_ids = card.attr(data_card);
+    				var card_prod_id_splitted = card_prod_ids.split("-");
+    
+    				for (let index = 0; index < card_prod_id_splitted.length; index++) {
+    					var card_prod_id = card_prod_id_splitted[index];
+    
+    					var objetoEncontrado = planos.find(function(item) {
+    						return item.id === card_prod_id;
+    					});
+    
+    					if(!objetoEncontrado){
+    						continue;
+    					}
+    
+    					controle_ids = true;
+    
+    					card.find("[data-card-nome]").text(objetoEncontrado.nome);
+    					card.find("[data-card-preco]").text(formatarValor(objetoEncontrado.preco));
+    					card.find(".preco-boleto").text(formatarValor(objetoEncontrado.preco_nao_dccfd));
+    				}
+    			}else{
+    				card.hide();
+    				Webflow.require('slider').redraw();
+    			}
+    
+    			if(!controle_ids){
+    				card.hide();
+    				Webflow.require('slider').redraw();
+    			}
+    		});
+    	}
+    }
+}
+
+
 function preco_combo(tipo, objetoEncontrado, plano_produto, ofertas){
     var preco_sem_desconto = 0;
     var preco_final = 0;
@@ -235,8 +296,13 @@ function preco_combo(tipo, objetoEncontrado, plano_produto, ofertas){
                             return iii.id === p.ofertaId.toString();
                         });
 
-                        preco_oferta = oferta_produto.pfdd.periodo[0].preco;
-                        periodo_oferta = oferta_produto.pfdd.periodo[0].ate;
+
+						if( oferta_produto !== undefined ){
+							preco_oferta = oferta_produto.pfdd.periodo[0].preco;
+                        	periodo_oferta = oferta_produto.pfdd.periodo[0].ate;
+						}else{
+							preco_oferta = preco_final;
+						}
                     }
                 }else{
                     preco_oferta = oferta_produto.pfdd.periodo[0].preco;
@@ -252,8 +318,12 @@ function preco_combo(tipo, objetoEncontrado, plano_produto, ofertas){
                     return iii.id === p.ofertaId.toString();
                 });
 
-                preco_oferta = oferta_produto.pfdd.periodo[0].preco;
-                periodo_oferta = oferta_produto.pfdd.periodo[0].ate;
+				if( oferta_produto !== undefined ){
+					preco_oferta = oferta_produto.pfdd.periodo[0].preco;
+					periodo_oferta = oferta_produto.pfdd.periodo[0].ate;
+				}else{
+					preco_oferta = preco_final;
+				}
 
                 preco_final = preco_oferta;
             }
