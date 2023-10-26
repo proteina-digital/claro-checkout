@@ -1,3 +1,4 @@
+// novos_metodos_planos.js
 function transformString(input) {
     if(!input) return '';
   var withoutSpaces = input.replace(/\s/g, '');
@@ -389,16 +390,16 @@ function transformString(input) {
                       price: selecao.internet.preco,
                       validity: selecao.internet.adesaoParcelas
                   }]
-                  plano_i_formatted.price = selecao.internet.preco
-                  plano_i_formatted.price_nao_dccfd = selecao.internet.preco + 500
+                //   plano_i_formatted.price = selecao.internet.preco
+                //   plano_i_formatted.price_nao_dccfd = selecao.internet.preco + 500
               }
               if (selecao.tv) {
                   plano_tv_formatted.promotions = [{
                       price: selecao.tv.preco,
                       validity: selecao.tv.adesaoParcelas
                   }]
-                  plano_tv_formatted.price = selecao.tv.preco
-                  plano_tv_formatted.price_nao_dccfd = selecao.tv.preco + 500
+                //   plano_tv_formatted.price = selecao.tv.preco
+                //   plano_tv_formatted.price_nao_dccfd = selecao.tv.preco + 500
               }
           }
           sessionStorage.setItem('plano_internet', JSON.stringify(plano_i_formatted))
