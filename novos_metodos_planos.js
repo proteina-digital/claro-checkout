@@ -217,18 +217,56 @@ function monta_preco(produto, ofertas, card) {
   }
 }
 
+function preco_produto(prod_combo, prod, preco_inicial){
+
+    var ofertas = sessionStorage.getItem('ofertas');
+    
+    var preco_final = preco_inicial;
+    var preco_oferta = preco_inicial;
+
+    if(prod_combo.hasOwnProperty("ofertaId")){
+        var oferta_produto = ofertas.find(function(i) {
+            return i.id === prod_combo.ofertaId.toString();
+        });
+    
+        if( oferta_produto === undefined ){
+    
+            if(prod.hasOwnProperty('ofertaId')){
+                oferta_produto = ofertas.find(function(iii) {
+                    return iii.id === prod.ofertaId.toString();
+                });
+    
+    
+                if( oferta_produto !== undefined ){
+                    preco_oferta = oferta_produto.pfdd.periodo[0].preco;
+                }else{
+                    preco_oferta = preco_final;
+                }
+            }else{
+                preco_oferta = preco_final;
+            }
+        }else{
+            preco_oferta = oferta_produto.pfdd.periodo[0].preco;
+        } 
+    }
+
+    preco_final = preco_oferta;
+
+    return preco_final;
+}
+
 function calcula_valor_total_2(combo, internet, tv, retorna_numero = false) {
   var valorTotal = 0;
   if (combo.tv && combo.tv.preco) {
-    valorTotal += combo.tv.preco;
+    valorTotal += preco_produto(combo.tv, tv, combo.tv.preco);
   } else {
-    valorTvCheio = tv.preco
+    valorTvCheio = preco_produto(combo.tv, tv, tv.preco);
     valorTotal += valorTvCheio;
   }
   if (combo.internet && combo.internet.preco) {
-    valorTotal += combo.internet.preco;
+    valorTotal += preco_produto(combo.internet, internet, combo.internet.preco);
   } else {
-    valorInternetCheio = internet.preco
+    valorInternetCheio = preco_produto(combo.internet, internet, internet.preco);
     valorTotal += valorInternetCheio;
   }
   if(valorTotal == 0) return false
