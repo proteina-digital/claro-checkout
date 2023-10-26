@@ -41,7 +41,9 @@ function transformString(input) {
             card.find('[data-celular]').hide();
             card.find('[data-celular]').next().hide();
             var valor_total = calcula_valor_total_2(combo, internet, tv)
-            card.find('[data-preco-combo]').text(valor_total).attr("data-preco-combo", valor_total);
+            card.find('[data-preco-combo]').text(valor_total[0]).attr("data-preco-combo", valor_total[0]);
+            card.attr('data-preco-combo-internet', valor_total[1]);
+            card.attr('data-preco-combo-tv', valor_total[2]);
         } else {
             var clone = slide_dom_item.clone();
             var card = clone.find('[data-combo-id]')
@@ -55,7 +57,9 @@ function transformString(input) {
             card.find('[data-celular]').hide();
             card.find('[data-celular]').next().hide();
             var valor_total = calcula_valor_total_2(combo, internet, tv)
-            card.find('[data-preco-combo]').text(valor_total).attr("data-preco-combo", valor_total);
+            card.find('[data-preco-combo]').text(valor_total[0]).attr("data-preco-combo", valor_total[0]);
+            card.attr('data-preco-combo-internet', valor_total[1]);
+            card.attr('data-preco-combo-tv', valor_total[2]);
             clone.appendTo(slider_mask);
         }
   
@@ -272,21 +276,27 @@ function transformString(input) {
   
   function calcula_valor_total_2(combo, internet, tv, retorna_numero = false) {
     var valorTotal = 0;
+    var valor_internet = 0;
+    var valor_tv = 0;
     if (combo.tv && combo.tv.preco) {
       valorTotal += preco_produto(combo.tv, tv, combo.tv.preco);
+      valor_tv = preco_produto(combo.tv, tv, combo.tv.preco);
     } else {
       valorTvCheio = preco_produto(combo.tv, tv, tv.preco);
+      valor_tv = valorTvCheio;
       valorTotal += valorTvCheio;
     }
     if (combo.internet && combo.internet.preco) {
       valorTotal += preco_produto(combo.internet, internet, combo.internet.preco);
+      valor_internet = preco_produto(combo.internet, internet, combo.internet.preco);
     } else {
       valorInternetCheio = preco_produto(combo.internet, internet, internet.preco);
+      valor_internet = valorInternetCheio;
       valorTotal += valorInternetCheio;
     }
     if(valorTotal == 0) return false
-    if(retorna_numero) return valorTotal
-    return (valorTotal / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    if(retorna_numero) return [valorTotal, valor_internet, valor_tv]
+    return [(valorTotal / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }), valor_internet, valor_tv]
   }
   
   function avanca_etapa_3_novo(card_escolhido) {
@@ -351,7 +361,7 @@ function transformString(input) {
       }
   
       else if (card_escolhido.attr("data-tipo-plano") == 'combo') {
-        
+        // AQUI
           var plano_i = JSON.parse(sessionStorage.getItem('planos')).find(item => item.nome == card_escolhido.attr('data-internet'))
           var plano_tv = JSON.parse(sessionStorage.getItem('planos_tv')).find(item => item.nome == card_escolhido.attr('data-tv'))
           var selecao = find_selecao_by_id(plano_tv.id, plano_i.id, 0)
@@ -359,8 +369,8 @@ function transformString(input) {
               sku: $('[data-nome-plano="' + card_escolhido.attr("data-internet") + '"]').attr('data-sku'),
               providerId: plano_i.id,
               name: plano_i.nome,
-              price: plano_i.preco,
-              price_nao_dccfd: (plano_i.preco_nao_dccfd && plano_i.preco_nao_dccfd != 'undefined') ? plano_i.preco_nao_dccfd : plano_i.price_nao_dccfd,
+              price: card_escolhido.attr('data-preco-combo-internet'), 
+              price_nao_dccfd: parseInt(card_escolhido.attr('data-preco-combo-internet')) + 500,
               kind: 'internet',
               promotions: []
           }
@@ -368,8 +378,8 @@ function transformString(input) {
               sku: $('[data-nome-plano="' + card_escolhido.attr("data-tv") + '"]').attr('data-sku'),
               providerId: plano_tv.id,
               name: plano_tv.nome,
-              price: plano_tv.preco,
-              price_nao_dccfd: (plano_tv.preco_nao_dccfd && plano_tv.preco_nao_dccfd != 'undefined') ? plano_tv.preco_nao_dccfd : plano_tv.price_nao_dccfd,
+              price: card_escolhido.attr('data-preco-combo-tv'), 
+              price_nao_dccfd: parseInt(card_escolhido.attr('data-preco-combo-tv')) + 500,
               kind: 'tv',
               promotions: []
           }
@@ -403,3 +413,4 @@ function transformString(input) {
       window.location.href = site + "/pagamento" + window.location.search
   }
   }
+  
