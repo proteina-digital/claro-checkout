@@ -1,4 +1,5 @@
 // novos_metodos_planos.js
+// novos_metodos_planos.js
 function transformString(input) {
     if(!input) return '';
   var withoutSpaces = input.replace(/\s/g, '');
@@ -371,7 +372,7 @@ function transformString(input) {
               providerId: plano_i.id,
               name: plano_i.nome,
               price: card_escolhido.attr('data-preco-combo-internet'), 
-              price_nao_dccfd: parseInt(card_escolhido.attr('data-preco-combo-internet')) + 500,
+              price_nao_dccfd: parseInt(card_escolhido.attr('data-preco-combo-internet')) > 0 ? parseInt(card_escolhido.attr('data-preco-combo-internet')) + 500 : 0,
               kind: 'internet',
               promotions: []
           }
@@ -380,7 +381,7 @@ function transformString(input) {
               providerId: plano_tv.id,
               name: plano_tv.nome,
               price: card_escolhido.attr('data-preco-combo-tv'), 
-              price_nao_dccfd: parseInt(card_escolhido.attr('data-preco-combo-tv')) + 500,
+              price_nao_dccfd: parseInt(card_escolhido.attr('data-preco-combo-tv')) > 0 ? parseInt(card_escolhido.attr('data-preco-combo-tv')) + 500 : 0,
               kind: 'tv',
               promotions: []
           }
@@ -414,4 +415,3 @@ function transformString(input) {
       window.location.href = site + "/pagamento" + window.location.search
   }
   }
-  
