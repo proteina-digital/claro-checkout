@@ -224,7 +224,7 @@ function transformString(input) {
       var preco_final = preco_inicial;
       var preco_oferta = preco_inicial;
   
-      if(prod_combo.hasOwnProperty("ofertaId")){
+      if( prod_combo && prod_combo.hasOwnProperty("ofertaId")){
           var oferta_produto = ofertas.find(function(i) {
               return i.id === prod_combo.ofertaId.toString();
           });
@@ -248,6 +248,21 @@ function transformString(input) {
           }else{
               preco_oferta = oferta_produto.pfdd.periodo[0].preco;
           } 
+      }else{
+        if(prod.hasOwnProperty('ofertaId')){
+            oferta_produto = ofertas.find(function(iii) {
+                return iii.id === prod.ofertaId.toString();
+            });
+
+
+            if( oferta_produto !== undefined ){
+                preco_oferta = oferta_produto.pfdd.periodo[0].preco;
+            }else{
+                preco_oferta = preco_final;
+            }
+        }else{
+            preco_oferta = preco_final;
+        }
       }
   
       preco_final = preco_oferta;
@@ -388,4 +403,3 @@ function transformString(input) {
       window.location.href = site + "/pagamento" + window.location.search
   }
   }
-  
