@@ -15,7 +15,6 @@ function transformString(input) {
     var internets = JSON.parse(sessionStorage.getItem('planos'))
     var tvs = JSON.parse(sessionStorage.getItem('planos_tv'))
     var selecoes_arr = JSON.parse(sessionStorage.getItem('selecoes'))
-    var extras = JSON.parse(sessionStorage.getItem('extras'))
   
     combos_validos = selecoes_arr.filter(function(selecao) {
         return (selecao.tvId && selecao.internetId && !selecao.foneId && !selecao.celularId)
@@ -359,7 +358,9 @@ function transformString(input) {
 
           if(plano_tv_session.recursosIds) {
             plano_tv_session.recursosIds.forEach(function(recurso_id) {
+              console.log(recurso_id);
               var recurso = extras.find(function(item) { return recurso_id == item.id });
+              console.log(recurso);
               additionalProducts.push(recurso);
             })
           }
