@@ -325,7 +325,12 @@ function transformString(input) {
           if(plano_i_session.recursosIds) {
             plano_i_session.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
-              additionalProducts.push(recurso);
+              var recurso_formatado = {
+                providerId: recurso.id,
+                name: recurso.nome,
+                price: 0
+              }
+              additionalProducts.push(recurso_formatado);
             })
           }
 
@@ -359,7 +364,12 @@ function transformString(input) {
           if(plano_tv_session.recursosIds) {
             plano_tv_session.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
-              additionalProducts.push(recurso);
+              var recurso_formatado = {
+                providerId: recurso.id,
+                name: recurso.nome,
+                price: 0
+              }
+              additionalProducts.push(recurso_formatado);
             })
           }
 
@@ -394,14 +404,24 @@ function transformString(input) {
           if(plano_i.recursosIds) {
             plano_i.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
-              additionalProductsInternet.push(recurso);
+              var recurso_formatado = {
+                providerId: recurso.id,
+                name: recurso.nome,
+                price: 0
+              }
+              additionalProductsInternet.push(recurso_formatado);
             })
           }
 
           if(plano_tv.recursosIds) {
             plano_tv.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
-              additionalProductsTv.push(recurso);
+              var recurso_formatado = {
+                providerId: recurso.id,
+                name: recurso.nome,
+                price: 0
+              }
+              additionalProductsTv.push(recurso_formatado);
             })
           }
 
