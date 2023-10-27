@@ -52,6 +52,20 @@ function formata_ofertas(resposta) {
   return ofertas_encontradas;
 }
 
+function formata_ofertas2(resposta) {
+  var todas_ofertas = resposta.ofertas
+
+  var todas_ofertas_array = [];
+
+  var ofertas_autorizadas = [];
+
+  jQuery.each(todas_ofertas, function (indexInArray, valueOfElement) { 
+    ofertas_autorizadas.push(valueOfElement)
+  });
+
+  return ofertas_autorizadas;
+}
+
 function encontrar_elemento_por_ids(array, ids, ids_combinados = true) {
     var chave;
     if(ids_combinados) { chave = ids.join('_');
