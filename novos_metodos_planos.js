@@ -13,6 +13,7 @@ function transformString(input) {
     var internets = JSON.parse(sessionStorage.getItem('planos'))
     var tvs = JSON.parse(sessionStorage.getItem('planos_tv'))
     var selecoes_arr = JSON.parse(sessionStorage.getItem('selecoes'))
+    var extras = JSON.parse(sessionStorage.getItem('extras'))
   
     combos_validos = selecoes_arr.filter(function(selecao) {
         return (selecao.tvId && selecao.internetId && !selecao.foneId && !selecao.celularId)
@@ -316,9 +317,17 @@ function transformString(input) {
   
       if (card_escolhido.attr("data-tipo-plano") == 'internet') {
           var promotions = [];
+          var additionalProducts = [];
           var plano_i_session = JSON.parse(sessionStorage.getItem('planos')).find(item => item.nome == card_escolhido.attr('data-nome-plano'))
           var oferta = JSON.parse(sessionStorage.getItem('ofertas')).find(item => item.id == plano_i_session.ofertaId)
   
+          if(plano_i_session.recursosIds) {
+            recursosIds.forEach(function(recurso_id) {
+              var recurso = extras.find(function(item) { return recurso_id == item.id });
+              additionalProducts.push(recurso);
+            })
+          }
+
           if (oferta && oferta.pfdd) {
               promotions.push({
                   price: oferta.pfdd.periodo[0].preco,
@@ -333,7 +342,8 @@ function transformString(input) {
               price: card_escolhido.find('[data-valor-preco]').attr('data-valor-preco'),
               price_nao_dccfd: card_escolhido.find("[data-preco_nao_dccfd]").attr('data-preco_nao_dccfd'),
               kind: 'internet',
-              promotions: promotions
+              promotions: promotions,
+              additionalProducts: additionalProducts
           }))
           var valores = [card_escolhido.find('[data-valor-preco]').attr('data-valor-preco'), card_escolhido.find("[data-preco_nao_dccfd]").attr('data-preco_nao_dccfd')]
           atualiza_plano_no_banco_de_abandonos(card_escolhido.attr("data-nome-plano").replace(/\D/g, ''), valores)
@@ -341,8 +351,17 @@ function transformString(input) {
   
       else if (card_escolhido.attr("data-tipo-plano") == 'tv') {
           var promotions = [];
+          var additionalProducts = [];
           var plano_tv_session = JSON.parse(sessionStorage.getItem('planos_tv')).find(item => item.nome == card_escolhido.attr('data-nome-plano'))
           var oferta = JSON.parse(sessionStorage.getItem('ofertas')).find(item => item.id == plano_tv_session.ofertaId)
+
+          if(plano_tv_session.recursosIds) {
+            recursosIds.forEach(function(recurso_id) {
+              var recurso = extras.find(function(item) { return recurso_id == item.id });
+              additionalProducts.push(recurso);
+            })
+          }
+
           if (oferta && oferta.pfdd) {
               promotions.push({
                   price: oferta.pfdd.periodo[0].preco,
@@ -364,9 +383,26 @@ function transformString(input) {
   
       else if (card_escolhido.attr("data-tipo-plano") == 'combo') {
         // AQUI
+          var additionalProductsInternet = [];
+          var additionalProductsTv = [];
           var plano_i = JSON.parse(sessionStorage.getItem('planos')).find(item => item.nome == card_escolhido.attr('data-internet'))
           var plano_tv = JSON.parse(sessionStorage.getItem('planos_tv')).find(item => item.nome == card_escolhido.attr('data-tv'))
           var selecao = find_selecao_by_id(plano_tv.id, plano_i.id, 0)
+
+          if(plano_i.recursosIds) {
+            recursosIds.forEach(function(recurso_id) {
+              var recurso = extras.find(function(item) { return recurso_id == item.id });
+              additionalProductsInternet.push(recurso);
+            })
+          }
+
+          if(plano_tv.recursosIds) {
+            recursosIds.forEach(function(recurso_id) {
+              var recurso = extras.find(function(item) { return recurso_id == item.id });
+              additionalProductsTv.push(recurso);
+            })
+          }
+
           var plano_i_formatted = {
               sku: $('[data-nome-plano="' + card_escolhido.attr("data-internet") + '"]').attr('data-sku'),
               providerId: plano_i.id,
@@ -374,7 +410,8 @@ function transformString(input) {
               price: card_escolhido.attr('data-preco-combo-internet'), 
               price_nao_dccfd: parseInt(card_escolhido.attr('data-preco-combo-internet')) > 0 ? parseInt(card_escolhido.attr('data-preco-combo-internet')) + 500 : 0,
               kind: 'internet',
-              promotions: []
+              promotions: [],
+              additionalProducts: additionalProductsInternet
           }
           var plano_tv_formatted = {
               sku: $('[data-nome-plano="' + card_escolhido.attr("data-tv") + '"]').attr('data-sku'),
@@ -383,8 +420,10 @@ function transformString(input) {
               price: card_escolhido.attr('data-preco-combo-tv'), 
               price_nao_dccfd: parseInt(card_escolhido.attr('data-preco-combo-tv')) > 0 ? parseInt(card_escolhido.attr('data-preco-combo-tv')) + 500 : 0,
               kind: 'tv',
-              promotions: []
+              promotions: [],
+              additionalProducts: additionalProductsTv
           }
+
           if (selecao) {
               if (selecao.internet) {
                   plano_i_formatted.promotions = [{
