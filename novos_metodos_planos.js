@@ -358,9 +358,7 @@ function transformString(input) {
 
           if(plano_tv_session.recursosIds) {
             plano_tv_session.recursosIds.forEach(function(recurso_id) {
-              console.log(recurso_id);
               var recurso = extras.find(function(item) { return recurso_id == item.id });
-              console.log(recurso);
               additionalProducts.push(recurso);
             })
           }
@@ -378,7 +376,8 @@ function transformString(input) {
               price: card_escolhido.find('[data-valor-preco]').attr('data-valor-preco'),
               price_nao_dccfd: card_escolhido.find("[data-preco_nao_dccfd]").attr('data-preco_nao_dccfd'),
               kind: 'tv',
-              promotions: promotions
+              promotions: promotions,
+              additionalProducts: additionalProducts
           }))
           var valores = [card_escolhido.find('[data-valor-preco]').attr('data-valor-preco'), card_escolhido.find("[data-preco_nao_dccfd]").attr('data-preco_nao_dccfd')]
           atualiza_plano_no_banco_de_abandonos(card_escolhido.attr("data-nome-plano").replace(/\D/g, ''), valores)
