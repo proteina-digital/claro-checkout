@@ -1,5 +1,7 @@
 // novos_metodos_planos.js
 // novos_metodos_planos.js
+var extras = JSON.parse(sessionStorage.getItem('extras'))
+
 function transformString(input) {
     if(!input) return '';
   var withoutSpaces = input.replace(/\s/g, '');
