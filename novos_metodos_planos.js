@@ -322,7 +322,7 @@ function transformString(input) {
           var oferta = JSON.parse(sessionStorage.getItem('ofertas')).find(item => item.id == plano_i_session.ofertaId)
   
           if(plano_i_session.recursosIds) {
-            recursosIds.forEach(function(recurso_id) {
+            plano_i_session.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
               additionalProducts.push(recurso);
             })
@@ -356,7 +356,7 @@ function transformString(input) {
           var oferta = JSON.parse(sessionStorage.getItem('ofertas')).find(item => item.id == plano_tv_session.ofertaId)
 
           if(plano_tv_session.recursosIds) {
-            recursosIds.forEach(function(recurso_id) {
+            plano_tv_session.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
               additionalProducts.push(recurso);
             })
@@ -390,14 +390,14 @@ function transformString(input) {
           var selecao = find_selecao_by_id(plano_tv.id, plano_i.id, 0)
 
           if(plano_i.recursosIds) {
-            recursosIds.forEach(function(recurso_id) {
+            plano_i.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
               additionalProductsInternet.push(recurso);
             })
           }
 
           if(plano_tv.recursosIds) {
-            recursosIds.forEach(function(recurso_id) {
+            plano_tv.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
               additionalProductsTv.push(recurso);
             })
