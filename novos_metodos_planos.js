@@ -44,7 +44,7 @@ function transformString(input) {
             card.find('[data-tv]').text(tv.nome)
             card.find('[data-celular]').hide();
             card.find('[data-celular]').next().hide();
-            var valor_total = calcula_valor_total_2(combo, internet, tv)
+            var valor_total = calcula_valor_total_2(combo, internet, tv, card)
             card.find('[data-preco-combo]').text(valor_total[0]).attr("data-preco-combo", valor_total[0]);
             card.attr('data-preco-combo-internet', valor_total[1]);
             card.attr('data-preco-combo-tv', valor_total[2]);
@@ -60,7 +60,7 @@ function transformString(input) {
             card.find('[data-tv]').text(tv.nome)
             card.find('[data-celular]').hide();
             card.find('[data-celular]').next().hide();
-            var valor_total = calcula_valor_total_2(combo, internet, tv)
+            var valor_total = calcula_valor_total_2(combo, internet, tv, card)
             card.find('[data-preco-combo]').text(valor_total[0]).attr("data-preco-combo", valor_total[0]);
             card.attr('data-preco-combo-internet', valor_total[1]);
             card.attr('data-preco-combo-tv', valor_total[2]);
@@ -281,7 +281,7 @@ function transformString(input) {
       return [preco_final, gratis_meses];
   }
   
-  function calcula_valor_total_2(combo, internet, tv, retorna_numero = false) {
+  function calcula_valor_total_2(combo, internet, tv, card, retorna_numero = false) {
     var valorTotal = 0;
     var valor_internet = 0;
     var valor_tv = 0;
