@@ -228,7 +228,7 @@ function transformString(input) {
   function preco_produto(prod_combo, prod, preco_inicial){
   
     var ofertas = JSON.parse(sessionStorage.getItem('ofertas'))
-      
+      var gratis_meses = false;
       var preco_final = preco_inicial;
       var preco_oferta = preco_inicial;
   
@@ -246,6 +246,7 @@ function transformString(input) {
       
       
                   if( oferta_produto !== undefined ){
+                      gratis_meses = oferta_produto.pfdd.periodo[0].ate
                       preco_oferta = oferta_produto.pfdd.periodo[0].preco;
                   }else{
                       preco_oferta = preco_final;
@@ -254,6 +255,7 @@ function transformString(input) {
                   preco_oferta = preco_final;
               }
           }else{
+              gratis_meses = oferta_produto.pfdd.periodo[0].ate
               preco_oferta = oferta_produto.pfdd.periodo[0].preco;
           } 
       }else{
@@ -264,6 +266,7 @@ function transformString(input) {
 
 
             if( oferta_produto !== undefined ){
+                gratis_meses = oferta_produto.pfdd.periodo[0].ate
                 preco_oferta = oferta_produto.pfdd.periodo[0].preco;
             }else{
                 preco_oferta = preco_final;
@@ -275,7 +278,7 @@ function transformString(input) {
   
       preco_final = preco_oferta;
   
-      return preco_final;
+      return [preco_final, gratis_meses];
   }
   
   function calcula_valor_total_2(combo, internet, tv, retorna_numero = false) {
@@ -283,18 +286,42 @@ function transformString(input) {
     var valor_internet = 0;
     var valor_tv = 0;
     if (combo.tv && combo.tv.preco) {
-      valorTotal += preco_produto(combo.tv, tv, combo.tv.preco);
-      valor_tv = preco_produto(combo.tv, tv, combo.tv.preco);
+      valorTotal += preco_produto(combo.tv, tv, combo.tv.preco)[0];
+      valor_tv = preco_produto(combo.tv, tv, combo.tv.preco)[0];
+
+      if(valor_tv == 0) {
+        var mes_str;
+        if (preco_produto(combo.tv, tv, combo.tv.preco)[1] == 1) {
+          mes_str = 'mês'
+        } else if (preco_produto(combo.tv, tv, combo.tv.preco)[1] > 1) {
+          mes_str = 'meses'
+        }
+
+        var obs = "Grátis por " + mes_str
+        card.find('[data-oferta-obs]').html('<strong>'+ obs +'</strong>');
+      }
     } else {
-      valorTvCheio = preco_produto(combo.tv, tv, tv.preco);
+      valorTvCheio = preco_produto(combo.tv, tv, tv.preco)[0];
       valor_tv = valorTvCheio;
       valorTotal += valorTvCheio;
     }
     if (combo.internet && combo.internet.preco) {
-      valorTotal += preco_produto(combo.internet, internet, combo.internet.preco);
-      valor_internet = preco_produto(combo.internet, internet, combo.internet.preco);
+      valorTotal += preco_produto(combo.internet, internet, combo.internet.preco)[0];
+      valor_internet = preco_produto(combo.internet, internet, combo.internet.preco)[0];
+
+      if(valor_internet == 0) {
+        var mes_str;
+        if (preco_produto(combo.tv, tv, combo.tv.preco)[1] == 1) {
+          mes_str = 'mês'
+        } else if (preco_produto(combo.tv, tv, combo.tv.preco)[1] > 1) {
+          mes_str = 'meses'
+        }
+        
+        var obs = "Grátis por " + mes_str
+        card.find('[data-oferta-obs]').html('<strong>'+ obs +'</strong>');
+      }
     } else {
-      valorInternetCheio = preco_produto(combo.internet, internet, internet.preco);
+      valorInternetCheio = preco_produto(combo.internet, internet, internet.preco)[0];
       valor_internet = valorInternetCheio;
       valorTotal += valorInternetCheio;
     }
