@@ -46,6 +46,15 @@ function transformString(input) {
             card.find('[data-celular]').next().hide();
             var valor_total = calcula_valor_total_2(combo, internet, tv, card)
             card.find('[data-preco-combo]').text(valor_total[0]).attr("data-preco-combo", valor_total[0]);
+            if(combo.tv && combo.internet) {
+              valor_apos = ((combo.tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })              
+            } else if (combo.internet) {
+              valor_apos = ((tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
+            } else if (combo.tv) {
+              valor_apos = ((combo.tv.preco + internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
+            }
+            var valor_apos = ((combo.tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+            card.find('[data-valor-apos]').html('Valor após '+ valor_apos);
             card.attr('data-preco-combo-internet', valor_total[1]);
             card.attr('data-preco-combo-tv', valor_total[2]);
         } else {
@@ -62,6 +71,14 @@ function transformString(input) {
             card.find('[data-celular]').next().hide();
             var valor_total = calcula_valor_total_2(combo, internet, tv, card)
             card.find('[data-preco-combo]').text(valor_total[0]).attr("data-preco-combo", valor_total[0]);
+            if(combo.tv && combo.internet) {
+              valor_apos = ((combo.tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })              
+            } else if (combo.internet) {
+              valor_apos = ((tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
+            } else if (combo.tv) {
+              valor_apos = ((combo.tv.preco + internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
+            }
+            card.find('[data-valor-apos]').html('Valor após '+ valor_apos);
             card.attr('data-preco-combo-internet', valor_total[1]);
             card.attr('data-preco-combo-tv', valor_total[2]);
             clone.appendTo(slider_mask);
@@ -277,7 +294,6 @@ function transformString(input) {
       }
   
       preco_final = preco_oferta;
-  
       return [preco_final, gratis_meses];
   }
   
@@ -298,7 +314,17 @@ function transformString(input) {
         }
 
         var obs = "Grátis por " + preco_produto(combo.tv, tv, combo.tv.preco)[1] + ' '  + mes_str
-        card[0].querySelector('[data-oferta-obs-tv]').innerHtml = '<strong>'+ obs +'</strong>';
+        card.find('[data-oferta-obs-tv').html('<strong>'+ obs +'</strong>')
+      } else if (preco_produto(combo.tv, tv, combo.tv.preco)[1]) {
+        var mes_str;
+        if (preco_produto(combo.tv, tv, combo.tv.preco)[1] == 1) {
+          mes_str = 'mês'
+        } else if (preco_produto(combo.tv, tv, combo.tv.preco)[1] > 1) {
+          mes_str = 'meses'
+        }
+         // mostro o preço da promoção
+          var obs = "Valor promocional por " + preco_produto(combo.tv, tv, combo.tv.preco)[1] + ' ' + mes_str
+          card.find('[data-oferta-obs-tv]').html('<strong>'+ obs +'</strong>')
       }
     } else {
       valorTvCheio = preco_produto(combo.tv, tv, tv.preco)[0];
@@ -311,14 +337,24 @@ function transformString(input) {
 
       if(valor_internet == 0) {
         var mes_str;
+        if (preco_produto(combo.internet, internet, combo.internet.preco)[1] == 1) {
+          mes_str = 'mês'
+        } else if (preco_produto(combo.internet, internet, combo.internet.preco)[1] > 1) {
+          mes_str = 'meses'
+        }
+        
+        var obs = "Grátis por " + mes_str        
+        card.find('[data-oferta-obs-internet').html('<strong>'+ obs +'</strong>')
+      }  else if (preco_produto(combo.internet, internet, combo.internet.preco)[1]) {
+        var mes_str;
         if (preco_produto(combo.tv, tv, combo.tv.preco)[1] == 1) {
           mes_str = 'mês'
         } else if (preco_produto(combo.tv, tv, combo.tv.preco)[1] > 1) {
           mes_str = 'meses'
         }
-        
-        var obs = "Grátis por " + mes_str        
-        card[0].querySelector('[data-oferta-obs-internet]').innerHtml = '<strong>'+ obs +'</strong>';
+         // mostro o preço da promoção
+          var obs = "Valor promocional por " + preco_produto(combo.internet, internet, combo.internet.preco)[1] + ' ' + mes_str
+          card.find('[data-oferta-obs-internet]').html('<strong>'+ obs +'</strong>');
       }
     } else {
       valorInternetCheio = preco_produto(combo.internet, internet, internet.preco)[0];
