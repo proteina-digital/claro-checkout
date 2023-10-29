@@ -297,7 +297,7 @@ function transformString(input) {
           mes_str = 'meses'
         }
 
-        var obs = "Grátis por " + mes_str
+        var obs = "Grátis por " preco_produto(combo.tv, tv, combo.tv.preco)[1] + ' '  + mes_str
         card.find('[data-oferta-obs-tv]').html('<strong>'+ obs +'</strong>');
       }
     } else {
