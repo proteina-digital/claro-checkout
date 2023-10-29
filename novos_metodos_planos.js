@@ -298,7 +298,7 @@ function transformString(input) {
         }
 
         var obs = "Grátis por " + preco_produto(combo.tv, tv, combo.tv.preco)[1] + ' '  + mes_str
-        card.find('[data-oferta-obs-tv]').html('<strong>'+ obs +'</strong>');
+        $(card[0].querySelector('[data-oferta-obs-tv]')).html('<strong>'+ obs +'</strong>');
       }
     } else {
       valorTvCheio = preco_produto(combo.tv, tv, tv.preco)[0];
@@ -317,8 +317,8 @@ function transformString(input) {
           mes_str = 'meses'
         }
         
-        var obs = "Grátis por " + mes_str
-        card.find('[data-oferta-obs-internet]').html('<strong>'+ obs +'</strong>');
+        var obs = "Grátis por " + mes_str        
+        $(card[0].querySelector('[data-oferta-obs-internet]')).html('<strong>'+ obs +'</strong>');
       }
     } else {
       valorInternetCheio = preco_produto(combo.internet, internet, internet.preco)[0];
