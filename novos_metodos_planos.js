@@ -96,7 +96,7 @@ function transformString(input) {
         valor_apos = ((combo.tv.preco + internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
     }
 
-    card.find('[data-valor-apos]').html('Valor a partir do  ' + (Number(qtt_meses) + 1) + '° ' + ((Number(qtt_meses) + 1) == 1 ? ' mês ' : ' meses ')   + valor_apos);
+    card.find('[data-valor-apos]').html('Valor a partir do  ' + (Number(qtt_meses) + 1) + '° mês ' + valor_apos);
     card.attr('data-preco-combo-internet', valor_total[1]);
     card.attr('data-preco-combo-tv', valor_total[2]);
   }
