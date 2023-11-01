@@ -46,17 +46,9 @@ function transformString(input) {
             card.find('[data-celular]').next().hide();
             var valor_total = calcula_valor_total_2(combo, internet, tv, card)
             card.find('[data-preco-combo]').text(valor_total[0]).attr("data-preco-combo", valor_total[0]);
-            if(combo.tv && combo.internet) {
-              valor_apos = ((combo.tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })              
-            } else if (combo.internet) {
-              valor_apos = ((tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
-            } else if (combo.tv) {
-              valor_apos = ((combo.tv.preco + internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
-            }
-            var valor_apos = ((combo.tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-            card.find('[data-valor-apos]').html('Valor após '+ valor_apos);
             card.attr('data-preco-combo-internet', valor_total[1]);
             card.attr('data-preco-combo-tv', valor_total[2]);
+            monta_texto_promocional(card, combo, internet, tv, valor_total)
         } else {
             var clone = slide_dom_item.clone();
             var card = clone.find('[data-combo-id]')
@@ -71,16 +63,9 @@ function transformString(input) {
             card.find('[data-celular]').next().hide();
             var valor_total = calcula_valor_total_2(combo, internet, tv, card)
             card.find('[data-preco-combo]').text(valor_total[0]).attr("data-preco-combo", valor_total[0]);
-            if(combo.tv && combo.internet) {
-              valor_apos = ((combo.tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })              
-            } else if (combo.internet) {
-              valor_apos = ((tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
-            } else if (combo.tv) {
-              valor_apos = ((combo.tv.preco + internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
-            }
-            card.find('[data-valor-apos]').html('Valor após '+ valor_apos);
             card.attr('data-preco-combo-internet', valor_total[1]);
             card.attr('data-preco-combo-tv', valor_total[2]);
+            monta_texto_promocional(card, combo, internet, tv, valor_total)
             clone.appendTo(slider_mask);
         }
   
@@ -97,6 +82,23 @@ function transformString(input) {
     }
   
     Webflow.require('slider').redraw();
+  }
+
+  function monta_texto_promocional(card, combo, internet, tv, valor_total) {
+    var qtt_meses = card.find('[data-promo-meses]').attr('data-promo-meses');
+    var valor_apos = '';
+
+    if(combo.tv && combo.internet) {
+        valor_apos = ((combo.tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })              
+    } else if (combo.internet) {
+        valor_apos = ((tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
+    } else if (combo.tv) {
+        valor_apos = ((combo.tv.preco + internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
+    }
+
+    card.find('[data-valor-apos]').html('Valor a partir do  ' + (Number(qtt_meses) + 1) + '° ' + ((Number(qtt_meses) + 1) == 1 ? ' mês ' : ' meses ')   + valor_apos);
+    card.attr('data-preco-combo-internet', valor_total[1]);
+    card.attr('data-preco-combo-tv', valor_total[2]);
   }
   
   function get_internets_validas() {
@@ -218,8 +220,6 @@ function transformString(input) {
                 // mostro o preço normal com a mensagem que é grátis no primeiro mês
                 card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal.replace(/[^0-9,]/g,''));
                 card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd.replace(/[^0-9,]/g,''));
-                var obs = "Grátis por " + meses + mes_ou_meses
-                card.find('[data-oferta-obs]').html('<strong>'+ obs +'</strong>');
             } else {
                 // mostro o preço da promoção
                 preco_nao_dccfd = (preco + 500)
@@ -227,8 +227,6 @@ function transformString(input) {
                 preco = (preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
                 card.find('[data-valor-preco]').text(preco).attr("data-valor-preco", preco.replace(/[^0-9,]/g,''));
                 card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd.replace(/[^0-9,]/g,''));
-                var obs = "Valor promocional por " + meses + mes_ou_meses
-                card.find('[data-oferta-obs]').text(obs);
             }
         } else {
             card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal.replace(/[^0-9,]/g,''));
@@ -324,7 +322,7 @@ function transformString(input) {
         }
          // mostro o preço da promoção
           var obs = "Valor promocional por " + preco_produto(combo.tv, tv, combo.tv.preco)[1] + ' ' + mes_str
-          card.find('[data-oferta-obs-tv]').html('<strong>'+ obs +'</strong>')
+          card.find('[data-oferta-obs-tv]').attr('data-promo-meses',  preco_produto(combo.tv, tv, combo.tv.preco)[1]).html('<strong>'+ obs +'</strong>')
       }
     } else {
       valorTvCheio = preco_produto(combo.tv, tv, tv.preco)[0];
