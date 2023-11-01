@@ -312,7 +312,7 @@ function transformString(input) {
         }
 
         var obs = "Grátis por " + preco_produto(combo.tv, tv, combo.tv.preco)[1] + ' '  + mes_str
-        card.find('[data-oferta-obs-tv').html('<strong>'+ obs +'</strong>')
+        card.find('[data-oferta-obs-tv').attr('data-promo-meses',  preco_produto(combo.tv, tv, combo.tv.preco)[1]).html('<strong>'+ obs +'</strong>')
       } else if (preco_produto(combo.tv, tv, combo.tv.preco)[1]) {
         var mes_str;
         if (preco_produto(combo.tv, tv, combo.tv.preco)[1] == 1) {
