@@ -387,7 +387,7 @@ function transformString(input) {
             plano_i_session.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
               var recurso_formatado = {
-                providerId: recurso.id,
+                id: recurso.id,
                 name: recurso.nome,
                 price: 0
               }
