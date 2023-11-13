@@ -208,6 +208,13 @@ function formata_resposta(resposta, somente_autorizados = true) {
 }
 
 function popula_cards(tipo){
+    var preco_final = 0;
+    var preco_oferta = 0;
+    var preco_boleto_final = 0;
+    var periodo_oferta = 0;
+    var preco_pos = 0;
+    var mensagem = "";
+
     if(tipo == 'planos_internet'){
     	var data_card = "data-card-internet";
     } else if (tipo == 'planos_tv') {
@@ -222,6 +229,7 @@ function popula_cards(tipo){
     
     if( sessionStorage.getItem(tipo) !== null ){
     	var planos = JSON.parse(sessionStorage.getItem(tipo));
+    	var ofertas = JSON.parse(sessionStorage.getItem("ofertas"));
     
     
     	if( jQuery("div["+data_card+"]").length > 0 ){
@@ -246,12 +254,44 @@ function popula_cards(tipo){
     					if(!objetoEncontrado){
     						continue;
     					}
+
+                        preco_final = objetoEncontrado.preco;
+                        preco_boleto_final = objetoEncontrado.preco_nao_dccfd;
+
+                        if(objetoEncontrado.hasOwnProperty("ofertaId")){
+                            var oferta_produto = ofertas.find(function(i) {
+                                return i.id === objetoEncontrado.ofertaId.toString();
+                            });
+            
+                            if( oferta_produto !== undefined ){
+                                preco_final = oferta_produto.pfdd.periodo[0].preco;
+                                periodo_oferta = oferta_produto.pfdd.periodo[0].ate;
+                                preco_boleto_final = preco_final + 500;
+                                preco_pos = objetoEncontrado.preco;
+                            }
+            
+                        }
     
     					controle_ids = true;
     
     					card.find("[data-card-nome]").text(objetoEncontrado.nome);
-    					card.find("[data-card-preco]").text(formatarValor(objetoEncontrado.preco));
-    					card.find(".preco-boleto").text(formatarValor(objetoEncontrado.preco_nao_dccfd));
+    					card.find("[data-card-preco]").text(formatarValor(preco_final));
+    					card.find(".preco-boleto").text(formatarValor(preco_boleto_final));
+
+                        if( periodo_oferta > 0 ){
+                            if(periodo_oferta > 1){
+                                mensagem = "Nos "+periodo_oferta+" primeiros meses.";
+                            }else{
+                                mensagem = "No primeiro mês.";
+                            }
+
+                            card.find("[data-prod-obs]").html(mensagem+"<br>Valor a partir do "+parseInt(periodo_oferta+1)+"º mês: "+formatarValor(preco_pos));
+                        }
+
+                        console.log(objetoEncontrado.nome+" - preco_final", preco_final);
+                        console.log(objetoEncontrado.nome+" - preco_boleto_final", preco_boleto_final);
+                        console.log(objetoEncontrado.nome+" - periodo_oferta", periodo_oferta);
+                        console.log(objetoEncontrado.nome+" - preco_pos", preco_pos);
     				}
     			}else{
     				card.hide();
@@ -442,10 +482,10 @@ function popula_cards_combo(){
                     }
 
                     // console.log("COMBOS:", preco_tv + preco_internet + preco_celular + preco_fixo);
-                    console.log("DADOS TOTAISa:", ret_tv );
-                    console.log("DADOS TOTAISb:", ret_net);
-                    console.log("DADOS TOTAISc:", ret_cel);
-                    console.log("DADOS TOTAISe:", ret_tel);
+                    // console.log("DADOS TOTAISa:", ret_tv );
+                    // console.log("DADOS TOTAISb:", ret_net);
+                    // console.log("DADOS TOTAISc:", ret_cel);
+                    // console.log("DADOS TOTAISe:", ret_tel);
                     
                     card.find("[data-card-preco]").text(formatarValor(preco_tv + preco_internet + preco_celular + preco_fixo));
 
