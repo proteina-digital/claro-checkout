@@ -583,7 +583,7 @@ function transformString(input) {
                 plano_tv_obs.text('Soundbox Claro TV+: Tenha som e imagem de cinema em casa + Claro TV+');
                 break;
             default:
-                plano_tv_obs.hide();
+                plano_tv_obs.parent().hide();
                 break;
         }
     }else if(tipo == 'internet'){
@@ -620,7 +620,7 @@ function transformString(input) {
                 plano_internet_obs.text('Mais velocidade para assistir streaming de vídeo em 4K, jogar online ou trabalho remoto.');
                 break;
             default:
-                plano_internet_obs.hide();
+                plano_internet_obs.parent().hide();
                 break;
         }
 
@@ -642,10 +642,16 @@ function transformString(input) {
           case '595_1181_0': // 350 mega + box claro tv
               plano_obs.text('Contrate o Combo e tenha 350MB de internet + Box Claro TV+');
               break;
+          case '639_1078_0': // 750 mega + 4k claro tv+:
+              plano_obs.text('Contrate o Combo e tenha 750MB de internet + 4K Claro TV+');
+              break;
           default:
-              plano_obs.hide();
+              plano_obs.parent().hide();
               break;
       }
 
     }
 }
+
+
+639_1078_0
