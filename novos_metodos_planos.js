@@ -333,6 +333,9 @@ function transformString(input) {
       valor_tv = valorTvCheio;
       valorTotal += valorTvCheio;
     }
+
+    txt_obs_planos(card, tv.id, 'tv');
+
     if (combo.internet && combo.internet.preco) {
       valorTotal += preco_produto(combo.internet, internet, combo.internet.preco)[0];
       valor_internet = preco_produto(combo.internet, internet, combo.internet.preco)[0];
@@ -358,11 +361,15 @@ function transformString(input) {
           var obs = "Valor promocional por " + preco_produto(combo.internet, internet, combo.internet.preco)[1] + ' ' + mes_str
           card.find('[data-oferta-obs-internet]').html('<strong>'+ obs +'</strong>');
       }
+      
     } else {
       valorInternetCheio = preco_produto(combo.internet, internet, internet.preco)[0];
       valor_internet = valorInternetCheio;
       valorTotal += valorInternetCheio;
     }
+
+    txt_obs_planos(card, internet.id, 'internet');
+
     if(valorTotal == 0) return false
     if(retorna_numero) return [valorTotal, valor_internet, valor_tv]
     return [(valorTotal / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }), valor_internet, valor_tv]
