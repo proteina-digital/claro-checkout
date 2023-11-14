@@ -68,6 +68,8 @@ function transformString(input) {
             monta_texto_promocional(card, combo, internet, tv, valor_total)
             clone.appendTo(slider_mask);
         }
+
+        txt_obs_planos(card, combo.id, 'combo');
   
     });
   
@@ -334,7 +336,6 @@ function transformString(input) {
       valorTotal += valorTvCheio;
     }
 
-    txt_obs_planos(card, tv.id, 'tv');
 
     if (combo.internet && combo.internet.preco) {
       valorTotal += preco_produto(combo.internet, internet, combo.internet.preco)[0];
@@ -367,8 +368,6 @@ function transformString(input) {
       valor_internet = valorInternetCheio;
       valorTotal += valorInternetCheio;
     }
-
-    txt_obs_planos(card, internet.id, 'internet');
 
     if(valorTotal == 0) return false
     if(retorna_numero) return [valorTotal, valor_internet, valor_tv]
@@ -587,7 +586,7 @@ function transformString(input) {
                 plano_tv_obs.hide();
                 break;
         }
-    }else{
+    }else if(tipo == 'internet'){
 
         if(card.find(".plano-destaque-txt.internet")){
             var plano_internet_obs = card.find(".plano-destaque-txt.internet");
@@ -596,8 +595,8 @@ function transformString(input) {
         }
 
         switch (id) {
-            case 0000: // 250 mega
-            case '0000':
+            case 434: // 250 mega
+            case '434':
                 plano_internet_obs.text('Ideal para home office, jogar online e assistir vídeos com alta qualidade.');
                 break;
             case 1181: // 350 mega
@@ -624,6 +623,29 @@ function transformString(input) {
                 plano_internet_obs.hide();
                 break;
         }
+
+    }else{
+
+      if(card.find(".plano-destaque-txt")){
+        var plano_obs = card.find(".plano-destaque-txt");
+      }else{
+          return;
+      }
+
+      switch (id) {
+          case '594_1181_0': // 350 mega + app claro tv
+              plano_obs.text('Contrate o Combo e tenha 350MB de internet + App Claro TV+');
+              break;
+          case '595_435_0': // 500 mega +box claro tv+
+              plano_obs.text('Contrate o Combo e tenha 500MB de internet + Box Claro TV+');
+              break;
+          case '595_1181_0': // 350 mega + box claro tv
+              plano_obs.text('Contrate o Combo e tenha 350MB de internet + Box Claro TV+');
+              break;
+          default:
+              plano_obs.hide();
+              break;
+      }
 
     }
 }
