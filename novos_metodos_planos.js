@@ -133,6 +133,8 @@ function transformString(input) {
             monta_preco(internet, ofertas, card)
             clone.appendTo(slider_mask);
         }
+
+        txt_obs_planos(card, internet.id, 'internet');
     });
   
   
@@ -180,6 +182,8 @@ function transformString(input) {
             monta_preco(tv, ofertas, card)
             clone.appendTo(slider_mask);
         }
+
+        txt_obs_planos(card, tv.id, 'tv');
   
     });
   
@@ -537,3 +541,82 @@ function transformString(input) {
       window.location.href = site + "/pagamento" + window.location.search
   }
   }
+
+
+  function txt_obs_planos(card, id, tipo){
+    if(tipo == 'tv'){
+        if(card.find(".plano-destaque-txt.tv")){
+            var plano_tv_obs = card.find(".plano-destaque-txt.tv");
+        }else{
+            return;
+        }
+
+        switch (id) {
+            case 594:
+            case '594':
+                plano_tv_obs.text('Mais de cem canais ao vivo quando e onde você quiser');
+                break;
+            case 595:
+            case '595':
+                plano_tv_obs.text('Conexão Wi-Fi: leve seu BOX para onde quiser');
+                break;
+            case 639:
+            case '639':
+                plano_tv_obs.text('A melhor imagem na sua casa + Claro TV+');
+                break;
+            case 674:
+            case '674':
+                plano_tv_obs.text('Conexão Wi-Fi: Leve seu BOX para onde quiser + Telecine');
+                break;
+            case 597:
+            case '597':
+                plano_tv_obs.text('Conexão Wi-Fi: Leve seu BOX para onde quiser + Paramount');
+                break;
+            case 647:
+            case '647':
+                plano_tv_obs.text('Soundbox Claro TV+: Tenha som e imagem de cinema em casa + Claro TV+');
+                break;
+            default:
+                plano_tv_obs.hide();
+                break;
+        }
+    }else{
+
+        if(card.find(".plano-destaque-txt.internet")){
+            var plano_internet_obs = card.find(".plano-destaque-txt.internet");
+        }else{
+            return;
+        }
+
+        switch (id) {
+            case 0000: // 250 mega
+            case '0000':
+                plano_internet_obs.text('Ideal para home office, jogar online e assistir vídeos com alta qualidade.');
+                break;
+            case 1181: // 350 mega
+            case '1181':
+                plano_internet_obs.text('Ideal para assistir streaming de vídeo em 4K, jogar online ou trabalho remoto');
+                break;
+            case 435: // 500 mega
+            case '435':
+                plano_internet_obs.text('Conecte mais de 10 aparelhos ao mesmo tempo sem perder a velocidade.');
+                break;
+            case 1078: // 750 mega
+            case '1078':
+                plano_internet_obs.text('Mais velocidade de conexão para sua família.');
+                break;
+            case 796: // 500 Mega Netflix
+            case '796':
+                plano_internet_obs.text('Conecte mais de 10 aparelhos ao mesmo tempo + Netflix');
+                break;
+            case 436: // 1 giga
+            case '436':
+                plano_internet_obs.text('Mais velocidade para assistir streaming de vídeo em 4K, jogar online ou trabalho remoto.');
+                break;
+            default:
+                plano_internet_obs.hide();
+                break;
+        }
+
+    }
+}
