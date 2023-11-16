@@ -576,11 +576,11 @@ function transformString(input) {
                 break;
             case 597:
             case '597':
-                plano_tv_obs.text('Conexão Wi-Fi: Leve seu BOX para onde quiser + Paramount');
+                plano_tv_obs.text('A melhor imagem na sua casa + Claro TV e Paramount');
                 break;
             case 647:
             case '647':
-                plano_tv_obs.text('Soundbox Claro TV+: Tenha som e imagem de cinema em casa + Claro TV+');
+                plano_tv_obs.text('Tenha som e imagem de cinema em casa + Claro TV+');
                 break;
             default:
                 plano_tv_obs.parent().hide();
