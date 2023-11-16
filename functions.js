@@ -207,6 +207,11 @@ function formata_resposta(resposta, somente_autorizados = true) {
     return [internet, tv_lista, celular_lista, telefone_lista];
 }
 
+function removerPalavras(texto) {
+    const resultado = texto.replace(/\b(?:controle|pós)\b/gi, '').trim();
+    return resultado;
+}
+
 function popula_cards(tipo){
     var preco_final = 0;
     var preco_oferta = 0;
@@ -274,9 +279,11 @@ function popula_cards(tipo){
     
     					controle_ids = true;
     
-    					card.find("[data-card-nome]").text(objetoEncontrado.nome);
+    					card.find("[data-card-nome]").text(removerPalavras(objetoEncontrado.nome));
     					card.find("[data-card-preco]").text(formatarValor(preco_final));
     					card.find(".preco-boleto").text(formatarValor(preco_boleto_final));
+
+                        console.log("nome celular", removerPalavras(objetoEncontrado.nome));
 
                         if( periodo_oferta > 0 ){
                             if(periodo_oferta > 1){
@@ -306,7 +313,6 @@ function popula_cards(tipo){
     	}
     }
 }
-
 
 function preco_combo(tipo, objetoEncontrado, plano_produto, ofertas){
     var preco_sem_desconto = 0;
