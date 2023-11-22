@@ -1,5 +1,4 @@
 // novos_metodos_planos.js
-// novos_metodos_planos.js
 var extras = JSON.parse(sessionStorage.getItem('extras'))
 
 function transformString(input) {
@@ -436,7 +435,7 @@ function transformString(input) {
             plano_tv_session.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
               var recurso_formatado = {
-                providerId: recurso.id,
+                id: recurso.id,
                 name: recurso.nome,
                 price: 0
               }
@@ -476,7 +475,7 @@ function transformString(input) {
             plano_i.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
               var recurso_formatado = {
-                providerId: recurso.id,
+                id: recurso.id,
                 name: recurso.nome,
                 price: 0
               }
@@ -488,7 +487,7 @@ function transformString(input) {
             plano_tv.recursosIds.forEach(function(recurso_id) {
               var recurso = extras.find(function(item) { return recurso_id == item.id });
               var recurso_formatado = {
-                providerId: recurso.id,
+                id: recurso.id,
                 name: recurso.nome,
                 price: 0
               }
