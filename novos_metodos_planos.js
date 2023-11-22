@@ -88,16 +88,25 @@ function transformString(input) {
   function monta_texto_promocional(card, combo, internet, tv, valor_total) {
     var qtt_meses = card.find('[data-promo-meses]').attr('data-promo-meses');
     var valor_apos = '';
+    var valor_boleto = '';
 
     if(combo.tv && combo.internet) {
-        valor_apos = ((combo.tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })              
+        valor_apos = ((combo.tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        valor_boleto = ((combo.tv.preco + combo.internet.preco + 1000) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     } else if (combo.internet) {
-        valor_apos = ((tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
+        valor_apos = ((tv.preco + combo.internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        valor_boleto = ((tv.preco + combo.internet.preco + 1000) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     } else if (combo.tv) {
-        valor_apos = ((combo.tv.preco + internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })      
+        valor_apos = ((combo.tv.preco + internet.preco) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        valor_boleto = ((combo.tv.preco + internet.preco + 1000) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
 
-    card.find('[data-valor-apos]').html('Valor a partir do  ' + (Number(qtt_meses) + 1) + '° mês ' + valor_apos);
+    if(qtt_meses){
+        card.find('[data-valor-apos]').html('Valor a partir do  ' + (Number(qtt_meses) + 1) + '° mês ' + valor_apos);
+    }else{
+        card.find('[data-valor-apos]').html('Com pagamento no débito e fatura digital ou R$ R$ '+valor_boleto+' no boleto bancário');
+    }
+
     card.attr('data-preco-combo-internet', valor_total[1]);
     card.attr('data-preco-combo-tv', valor_total[2]);
   }
