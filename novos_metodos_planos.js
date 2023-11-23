@@ -106,7 +106,7 @@ function transformString(input) {
     if(qtt_meses){
         card.find('[data-valor-apos]').html('Valor a partir do  ' + (Number(qtt_meses) + 1) + '° mês ' + valor_apos);
     }else{
-        card.find('[data-valor-apos]').html('Com pagamento no débito e fatura digital ou R$ '+valor_boleto+' no boleto bancário');
+        card.find('[data-valor-apos]').html('Com pagamento no débito e fatura digital ou '+valor_boleto+' no boleto bancário');
     }
 
     card.attr('data-preco-combo-internet', valor_total[1]);
