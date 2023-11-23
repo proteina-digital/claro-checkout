@@ -101,10 +101,12 @@ function transformString(input) {
         valor_boleto = ((combo.tv.preco + internet.preco + 1000) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
 
+    card.find('[data-valor-apos]').removeClass('destaque-combo');
+
     if(qtt_meses){
         card.find('[data-valor-apos]').html('Valor a partir do  ' + (Number(qtt_meses) + 1) + '° mês ' + valor_apos);
     }else{
-        card.find('[data-valor-apos]').html('Com pagamento no débito e fatura digital ou R$ R$ '+valor_boleto+' no boleto bancário');
+        card.find('[data-valor-apos]').html('Com pagamento no débito e fatura digital ou R$ '+valor_boleto+' no boleto bancário');
     }
 
     card.attr('data-preco-combo-internet', valor_total[1]);
