@@ -35,6 +35,7 @@ function transformString(input) {
         if(index == 0) {
             var card = slide_dom_item.find('[data-combo-id]')
             card.attr('data-cod-plano', transformString(tv.nome) + '_' + transformString(internet.nome))
+            card.attr('data-cod-id-plano', 'COMBO-'+combo.id)
             card.attr('data-combo-id', combo.id)
             card.attr('data-internet', internet.nome)
             card.attr('data-tv', tv.nome)
@@ -52,6 +53,7 @@ function transformString(input) {
             var clone = slide_dom_item.clone();
             var card = clone.find('[data-combo-id]')
             card.attr('data-cod-plano', transformString(tv.nome) + '_' + transformString(internet.nome))
+            card.attr('data-cod-id-plano', 'COMBO-'+combo.id)
             card.attr('data-combo-id', combo.id)
             card.attr('data-internet', internet.nome)
             card.attr('data-tv', tv.nome)
@@ -129,6 +131,7 @@ function transformString(input) {
             card.attr('data-id', internet.id)
             card.attr('data-nome-plano', internet.nome)
             card.attr('data-cod-plano', transformString(internet.nome))
+            card.attr('data-cod-id-plano', 'INTERNET-'+internet.id)
             card.find('[data-titulo]').text(internet.nome)
             if(internet.nome) { card.find('[data-plano]').attr('data-plano', internet.nome.replace(/\D/g,'')) }
             monta_preco(internet, ofertas, card)
@@ -138,6 +141,7 @@ function transformString(input) {
             card.attr('data-id', internet.id)
             card.attr('data-nome-plano', internet.nome)
             card.attr('data-cod-plano', transformString(internet.nome))
+            card.attr('data-cod-id-plano', 'INTERNET-'+internet.id)
             card.find('[data-melhor-oferta]').remove();
   
             card.find('[data-titulo]').text(internet.nome)
@@ -179,6 +183,7 @@ function transformString(input) {
             card.attr('data-id', tv.id)
             card.attr('data-nome-plano', tv.nome)
             card.attr('data-cod-plano', transformString(tv.nome))
+            card.attr('data-cod-id-plano', 'TV-'+tv.id)
             // adicionar outros atributos
             card.find('[data-titulo]').text(tv.nome)
             monta_preco(tv, ofertas, card)
@@ -188,6 +193,7 @@ function transformString(input) {
             card.attr('data-id', tv.id)
             card.attr('data-nome-plano', tv.nome)
             card.attr('data-cod-plano', transformString(tv.nome))
+            card.attr('data-cod-id-plano', 'TV-'+tv.id)
             card.find('[data-melhor-oferta]').remove();
   
             card.find('[data-titulo]').text(tv.nome)
