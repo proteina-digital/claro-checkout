@@ -196,10 +196,14 @@ function create_cards_combo(){
 			for (var i = selecoes.length - 1; i >= 0; i--) {
 				var plano_combo = selecoes[i];
 
-				// if( '0_1181_182' !==  plano_combo.id){
-				// 	continue;
-				// }
+				if (typeof combos_autorizados === 'function') {
+					var combosautorizados = combos_autorizados();
+					if( !combosautorizados.includes(plano_combo.id) ){
+						continue;
+					}
+				}
 
+			
 				card_clonado.removeAttr('aria-label');
 				card_clonado.attr('aria-label', cc+' of '+qtd_planos);
 				card_clonado.attr('data-card-id', plano_combo.id);
