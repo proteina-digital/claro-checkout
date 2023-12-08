@@ -94,7 +94,7 @@ function create_cards(tipo){
 						}
 					}
 
-					card_clonado.find(".novo-card-botao").attr('target', '_blank').attr('href', 'https://carrinho.ofertasclaro.com.br/'+url_params+url_plano);
+					card_clonado.find("[data-btn-contratar]").attr('target', '_blank').attr('href', 'https://carrinho.ofertasclaro.com.br/'+url_params+url_plano);
 
 				}
 
@@ -386,7 +386,7 @@ function create_cards_combo(){
 					}
 				}
 
-				card_clonado.find(".novo-card-botao").attr('target', '_blank').attr('href', 'https://carrinho.ofertasclaro.com.br/'+url_params+url_plano);
+				card_clonado.find("[data-btn-contratar]").attr('target', '_blank').attr('href', 'https://carrinho.ofertasclaro.com.br/'+url_params+url_plano);
 
 				// zerando novamente
 				url_plano = 'plano=COMBO-';
