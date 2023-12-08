@@ -87,6 +87,7 @@ function formata_combos(combo){
 function formata_resposta(resposta, somente_autorizados = true) {
     var produtos = resposta.produtos
     var ofertas = resposta.ofertas
+    var recursos = resposta.extras.recursos
     var internets = produtos.internet
     var tvs = produtos.tv
     var celulares = produtos.celular
@@ -127,7 +128,8 @@ function formata_resposta(resposta, somente_autorizados = true) {
             key: key,
             adesaoParcelas: plano_internet.adesaoParcelas,
             adesao: plano_internet.adesao,
-            ofertaId: plano_internet.ofertaId
+            ofertaId: plano_internet.ofertaId,
+            recursosIds: plano_internet.recursosIds
         })
     }
 
@@ -154,7 +156,8 @@ function formata_resposta(resposta, somente_autorizados = true) {
             key: key,
             adesaoParcelas: plano_tv.adesaoParcelas,
             adesao: plano_tv.adesao,
-            ofertaId: plano_tv.ofertaId
+            ofertaId: plano_tv.ofertaId,
+            recursosIds: plano_tv.recursosIds
         })
     }
 
@@ -180,7 +183,8 @@ function formata_resposta(resposta, somente_autorizados = true) {
             key: key,
             adesaoParcelas: plano_celular.adesaoParcelas,
             adesao: plano_celular.adesao,
-            ofertaId: plano_celular.ofertaId
+            ofertaId: plano_celular.ofertaId,
+            recursosIds: plano_celular.recursosIds
         })
     }
 
@@ -201,10 +205,11 @@ function formata_resposta(resposta, somente_autorizados = true) {
             key: key,
             adesaoParcelas: plano_telefone.adesaoParcelas,
             adesao: plano_telefone.adesao,
-            ofertaId: plano_telefone.ofertaId
+            ofertaId: plano_telefone.ofertaId,
+            recursosIds: plano_telefone.recursosIds
         })
     }
-    return [internet, tv_lista, celular_lista, telefone_lista];
+    return [internet, tv_lista, celular_lista, telefone_lista, recursos];
 }
 
 function removerPalavras(texto) {
