@@ -214,14 +214,6 @@ function create_cards_combo(){
 					card_clonado.addClass('novo-slide-menor');
 				}
 
-				if( controle_autorizados == 3 ){
-					console.log("deu 3?", controle_autorizados);
-					data_cards.find(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
-					break;
-				}
-
-				console.log('controle_autorizados: '+i, controle_autorizados);
-
 			
 				card_clonado.removeAttr('aria-label');
 				card_clonado.attr('aria-label', cc+' of '+qtd_planos);
@@ -447,6 +439,11 @@ function create_cards_combo(){
 			Webflow.require('slider').redraw();
 			Webflow.require('slider').ready();
 			Webflow.require('dropdown').ready();
+
+			// if( controle_autorizados == 3 ){
+			// 	data_cards.find(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
+			// 	break;
+			// }
 		}
 
 	}
