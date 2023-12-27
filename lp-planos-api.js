@@ -215,6 +215,7 @@ function create_cards_combo(){
 				}
 
 				if( controle_autorizados == 3 ){
+					console.log("deu 3?", controle_autorizados);
 					data_cards.find(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
 					break;
 				}
