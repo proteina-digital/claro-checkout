@@ -226,7 +226,7 @@ function create_cards_combo(){
 				if (typeof combos_autorizados === 'function') {
 					var combosautorizados = combos_autorizados();
 					if(combosautorizados.length > 0){
-						if( !combosautorizados.includes(plano.id) ){
+						if( !combosautorizados.includes(plano_combo.id) ){
 							continue;
 						}else{
 							controle_autorizados++;
