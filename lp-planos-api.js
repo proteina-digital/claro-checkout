@@ -45,10 +45,6 @@ function create_cards(tipo){
 			for (var i = planos.length - 1; i >= 0; i--) {
 				var plano = planos[i];
 
-				if (i === 0) {
-					data_cards.find(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
-				}
-
 				if (typeof planos_autorizados === 'function') {
 					var combosautorizados = planos_autorizados(tipo);
 
@@ -63,6 +59,10 @@ function create_cards(tipo){
 
 				if( controle_autorizados > 0){
 					card_clonado.addClass('novo-slide-menor');
+
+					if (i === 0 && controle_autorizados < 4) {
+						data_cards.find(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
+					}
 				}
 
 				card_clonado.removeAttr('aria-label');
@@ -236,6 +236,10 @@ function create_cards_combo(){
 
 				if( controle_autorizados > 0){
 					card_clonado.addClass('novo-slide-menor');
+
+					if (i === 0 && controle_autorizados < 4) {
+						data_cards.find(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
+					}
 				}
 
 			
