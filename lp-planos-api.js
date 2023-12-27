@@ -198,7 +198,7 @@ function create_cards_combo(){
 				var plano_combo = selecoes[i];
 
 				if (i === 0) {
-					card_clonado.parent(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
+					data_cards.find(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
 				}
 
 				if (typeof combos_autorizados === 'function') {
