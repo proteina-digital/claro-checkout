@@ -214,6 +214,11 @@ function create_cards_combo(){
 					card_clonado.addClass('novo-slide-menor');
 				}
 
+				if( controle_autorizados == 3 ){
+					data_cards.find(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
+					break;
+				}
+
 			
 				card_clonado.removeAttr('aria-label');
 				card_clonado.attr('aria-label', cc+' of '+qtd_planos);
@@ -550,4 +555,4 @@ function textos_obs_planos(id, tipo){
     }
 
     return resultado;
-}	
+}
