@@ -219,6 +219,8 @@ function create_cards_combo(){
 					break;
 				}
 
+				console.log('controle_autorizados: '+i, controle_autorizados);
+
 			
 				card_clonado.removeAttr('aria-label');
 				card_clonado.attr('aria-label', cc+' of '+qtd_planos);
@@ -555,4 +557,4 @@ function textos_obs_planos(id, tipo){
     }
 
     return resultado;
-}
+}	
