@@ -28,6 +28,8 @@ function create_cards(tipo){
     	var ofertas = JSON.parse(sessionStorage.getItem("ofertas"));
     	var recursos = JSON.parse(sessionStorage.getItem("recursos"));
 
+    	var controle_autorizados = 0;
+
 		if( $('[data-cards="'+data_card+'"]').length > 0 ){
 			var data_cards = $('[data-cards="'+data_card+'"]');
 			var card_clonado = data_cards.find('.novo-slide').eq(0).clone();
@@ -42,6 +44,26 @@ function create_cards(tipo){
 
 			for (var i = planos.length - 1; i >= 0; i--) {
 				var plano = planos[i];
+
+				if (i === 0) {
+					data_cards.find(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
+				}
+
+				if (typeof planos_autorizados === 'function') {
+					var combosautorizados = planos_autorizados(tipo);
+
+					if(combosautorizados.length > 0){
+						if( !combosautorizados.includes(plano.id) ){
+							continue;
+						}else{
+							controle_autorizados++;
+						}
+					}
+				}
+
+				if( controle_autorizados > 0){
+					card_clonado.addClass('novo-slide-menor');
+				}
 
 				card_clonado.removeAttr('aria-label');
 				card_clonado.attr('aria-label', cc+' of '+qtd_planos);
@@ -203,10 +225,12 @@ function create_cards_combo(){
 
 				if (typeof combos_autorizados === 'function') {
 					var combosautorizados = combos_autorizados();
-					if( !combosautorizados.includes(plano_combo.id) ){
-						continue;
-					}else{
-						controle_autorizados++;
+					if(combosautorizados.length > 0){
+						if( !combosautorizados.includes(plano.id) ){
+							continue;
+						}else{
+							controle_autorizados++;
+						}
 					}
 				}
 
