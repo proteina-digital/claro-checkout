@@ -176,6 +176,7 @@ function create_cards_combo(){
     var data_card = "combos";
 
     var titulo_combo = '';
+    var controle_autorizados = 0;
 
 	
 
@@ -196,11 +197,21 @@ function create_cards_combo(){
 			for (var i = selecoes.length - 1; i >= 0; i--) {
 				var plano_combo = selecoes[i];
 
+				if (i === 0) {
+					card_clonado.parent(".novos-cards-mascara").addClass("novos-cards-mascara-menor");
+				}
+
 				if (typeof combos_autorizados === 'function') {
 					var combosautorizados = combos_autorizados();
 					if( !combosautorizados.includes(plano_combo.id) ){
 						continue;
+					}else{
+						controle_autorizados++;
 					}
+				}
+
+				if( controle_autorizados > 0){
+					card_clonado.addClass('novo-slide-menor');
 				}
 
 			
