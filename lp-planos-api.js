@@ -163,7 +163,7 @@ function create_cards(tipo){
 
 		    // Atribuir a altura máxima a todos os filhos
 		    data_cards.find(".novo-card-header").css('height', alturaMaxima + 'px');
-		    data_cards.find(".novo-card-area-preco").css('height', alturaMaximaap + 'px');
+		    data_cards.find(".novo-card-area-preco").css('min-height', alturaMaximaap + 'px');
 
 			Webflow.require('slider').redraw();
 			Webflow.require('slider').ready();
@@ -477,7 +477,7 @@ function create_cards_combo(){
 
 		    // Atribuir a altura máxima a todos os filhos
 		    data_cards.find(".novo-card-header").css('height', alturaMaxima + 'px');
-		    data_cards.find(".novo-card-area-preco").css('height', alturaMaximaap + 'px');
+		    data_cards.find(".novo-card-area-preco").css('min-height', alturaMaximaap + 'px');
 
 			Webflow.require('slider').redraw();
 			Webflow.require('slider').ready();
