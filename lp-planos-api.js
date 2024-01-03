@@ -329,7 +329,6 @@ function create_cards_combo(){
                     preco_internet = ret_net[0];
                     preco_internet_sdesconto = ret_net[1];
 
-                    console.log('internet -> '+ids_combos[1], preco_internet, ret_net[2]);
 
                     if(ret_net[2] != 0){
                         tempo_desconto = ret_net[2];
@@ -410,8 +409,6 @@ function create_cards_combo(){
 
    
 			    url_plano = url_plano+plano_combo.id;
-
-			    console.log('combo: '+plano_combo.id, preco_tv, preco_internet, preco_celular, preco_fixo);
 
 
 				card_clonado.find(".novo-card-titulo").text(titulo_combo.toUpperCase());
@@ -612,4 +609,4 @@ function textos_obs_planos(id, tipo){
     }
 
     return resultado;
-}	
+}
