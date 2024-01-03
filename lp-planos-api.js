@@ -329,6 +329,8 @@ function create_cards_combo(){
                     preco_internet = ret_net[0];
                     preco_internet_sdesconto = ret_net[1];
 
+                    console.log('internet -> '+ids_combos[1], preco_internet, ret_net[2]);
+
                     if(ret_net[2] != 0){
                         tempo_desconto = ret_net[2];
                     }else{
