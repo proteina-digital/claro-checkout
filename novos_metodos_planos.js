@@ -369,9 +369,9 @@ function transformString(input) {
         card.find('[data-oferta-obs-internet').html('<strong>'+ obs +'</strong>')
       }  else if (preco_produto(combo.internet, internet, combo.internet.preco)[1]) {
         var mes_str;
-        if (preco_produto(combo.tv, tv, combo.tv.preco)[1] == 1) {
+        if (preco_produto(combo.internet, internet, combo.internet.preco)[1] == 1) {
           mes_str = 'mês'
-        } else if (preco_produto(combo.tv, tv, combo.tv.preco)[1] > 1) {
+        } else if (preco_produto(combo.internet, internet, combo.internet.preco)[1] > 1) {
           mes_str = 'meses'
         }
          // mostro o preço da promoção
