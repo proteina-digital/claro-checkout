@@ -300,7 +300,7 @@ function create_cards_combo(){
 
 				// TV
 				if(ids_combos[0] != 0 && ids_combos[0] !== undefined){
-                    ret_tv = preco_combo_att("tv", selecao_combo, planos_tv, ofertas);
+                    ret_tv = preco_combo("tv", selecao_combo, planos_tv, ofertas);
                     preco_tv = ret_tv[0];
                     preco_tv_sdesconto = ret_tv[1];
 
@@ -325,7 +325,7 @@ function create_cards_combo(){
 
                 // INTERNET
                 if(ids_combos[1] != 0 && ids_combos[1] !== undefined){
-                    ret_net = preco_combo_att("internet", selecao_combo, planos_internet, ofertas);
+                    ret_net = preco_combo("internet", selecao_combo, planos_internet, ofertas);
                     preco_internet = ret_net[0];
                     preco_internet_sdesconto = ret_net[1];
 
@@ -351,7 +351,7 @@ function create_cards_combo(){
 
                 // CELULAR
                 if(ids_combos[3] != 0 && ids_combos[3] !== undefined){
-                    ret_cel = preco_combo_att("celular", selecao_combo, planos_celular, ofertas);
+                    ret_cel = preco_combo("celular", selecao_combo, planos_celular, ofertas);
                     preco_celular = ret_cel[0];
                     preco_cel_sdesconto = ret_cel[1];
 
@@ -380,7 +380,7 @@ function create_cards_combo(){
 
                 // TELEFONE FIXO
                 if(ids_combos[2] != 0 && ids_combos[2] !== undefined){
-                    ret_tel = preco_combo_att("fone", selecao_combo, planos_fixo, ofertas);
+                    ret_tel = preco_combo("fone", selecao_combo, planos_fixo, ofertas);
                     preco_fixo = ret_tel[0];
                     preco_fixo_sdesconto = ret_tel[1];
 
