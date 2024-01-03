@@ -326,16 +326,16 @@ function preco_combo(tipo, objetoEncontrado, plano_produto, ofertas){
 
     if(tipo == "internet"){
         var objencontrado = objetoEncontrado.internetId;
-        var objencontrado_prod = objetoEncontrado.internet;
+        var objencontrado_prod = objetoEncontrado.internet ? objetoEncontrado.internet : false;
     }else if(tipo == "tv"){
         var objencontrado = objetoEncontrado.tvId;
-        var objencontrado_prod = objetoEncontrado.tv;
+        var objencontrado_prod = objetoEncontrado.tv ? objetoEncontrado.tv : false;
     }else if(tipo == "celular"){
         var objencontrado = objetoEncontrado.celularId;
-        var objencontrado_prod = objetoEncontrado.celular;
+        var objencontrado_prod = objetoEncontrado.celular ? objetoEncontrado.celular : false;
     }else{
         var objencontrado = objetoEncontrado.foneId;
-        var objencontrado_prod = objetoEncontrado.fone;
+        var objencontrado_prod = objetoEncontrado.fone ? objetoEncontrado.fone : false;
     }
 
     if(objencontrado != 0){
@@ -362,12 +362,12 @@ function preco_combo(tipo, objetoEncontrado, plano_produto, ofertas){
                         });
 
 
-						if( oferta_produto !== undefined ){
-							preco_oferta = oferta_produto.pfdd.periodo[0].preco;
-                        	periodo_oferta = oferta_produto.pfdd.periodo[0].ate;
-						}else{
-							preco_oferta = preco_final;
-						}
+                        if( oferta_produto !== undefined ){
+                            preco_oferta = oferta_produto.pfdd.periodo[0].preco;
+                            periodo_oferta = oferta_produto.pfdd.periodo[0].ate;
+                        }else{
+                            preco_oferta = preco_final;
+                        }
                     }
                 }else{
                     preco_oferta = oferta_produto.pfdd.periodo[0].preco;
@@ -379,22 +379,23 @@ function preco_combo(tipo, objetoEncontrado, plano_produto, ofertas){
         }else{
             
             if(p.hasOwnProperty('ofertaId')){
-                oferta_produto = ofertas.find(function(iii) {
+                var oferta_produto = ofertas.find(function(iii) {
                     return iii.id === p.ofertaId.toString();
                 });
 
-				if( oferta_produto !== undefined ){
-					preco_oferta = oferta_produto.pfdd.periodo[0].preco;
-					periodo_oferta = oferta_produto.pfdd.periodo[0].ate;
-				}else{
-					preco_oferta = preco_final;
-				}
+                if( oferta_produto !== undefined ){
+                    preco_oferta = oferta_produto.pfdd.periodo[0].preco;
+                    periodo_oferta = oferta_produto.pfdd.periodo[0].ate;
+                }else{
+                    preco_oferta = preco_final;
+                }
 
                 preco_final = preco_oferta;
             }
         }
 
     }
+
 
     return [preco_final, preco_sem_desconto, periodo_oferta, "tipo:"+tipo+" - "+objencontrado];
 }
