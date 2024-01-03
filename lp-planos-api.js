@@ -467,6 +467,16 @@ function create_cards_combo(){
 				cc++;
 
 				data_cards.find(".novos-cards-mascara").append(card_clonado.clone());
+
+				preco_tv = 0
+				preco_internet = 0
+				preco_celular = 0
+				preco_fixo = 0
+
+				preco_tv_sdesconto = 0
+				preco_internet_sdesconto = 0
+				preco_cel_sdesconto = 0
+				preco_fixo_sdesconto = 0
 			}
 
 			var alturaMaxima = 0;
