@@ -144,6 +144,8 @@ function create_cards(tipo){
 					});
 				}
 
+				periodo_oferta = 0;
+
 				cc++;
 
 				data_cards.find(".novos-cards-mascara").append(card_clonado.clone());
@@ -450,6 +452,7 @@ function create_cards_combo(){
                 	card_clonado.find("[data-card-aviso-promo]").remove();
                 }
 
+                tempo_desconto = 0;
 
 				cc++;
 
