@@ -411,6 +411,8 @@ function create_cards_combo(){
    
 			    url_plano = url_plano+plano_combo.id;
 
+			    console.log('combo: '+plano_combo.id, preco_tv, preco_internet, preco_celular, preco_fixo);
+
 
 				card_clonado.find(".novo-card-titulo").text(titulo_combo.toUpperCase());
 				card_clonado.find(".novo-card-preco").text(formatarValor(preco_tv + preco_internet + preco_celular + preco_fixo));
