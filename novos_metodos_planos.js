@@ -242,6 +242,8 @@ function transformString(input) {
                 // mostro o preço normal com a mensagem que é grátis no primeiro mês
                 card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal.replace(/[^0-9,]/g,''));
                 card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd.replace(/[^0-9,]/g,''));
+                var obs = "Grátis por " + meses + ' '  + mes_ou_meses;
+                card.find('[data-oferta-obs]').text(obs);
             } else {
                 // mostro o preço da promoção
                 preco_nao_dccfd = (preco + 500)
@@ -249,6 +251,8 @@ function transformString(input) {
                 preco = (preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
                 card.find('[data-valor-preco]').text(preco).attr("data-valor-preco", preco.replace(/[^0-9,]/g,''));
                 card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd.replace(/[^0-9,]/g,''));
+                var obs = "Valor promocional por " + meses + ' ' + mes_ou_meses;
+                card.find('[data-oferta-obs]').text(obs);
             }
         } else {
             card.find('[data-valor-preco]').text(preco_normal).attr("data-valor-preco", preco_normal.replace(/[^0-9,]/g,''));
