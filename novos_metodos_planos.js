@@ -251,7 +251,7 @@ function transformString(input) {
                 preco = (preco / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
                 card.find('[data-valor-preco]').text(preco).attr("data-valor-preco", preco.replace(/[^0-9,]/g,''));
                 card.find('[data-preco_nao_dccfd]').text(preco_nao_dccfd).attr("data-preco_nao_dccfd", preco_nao_dccfd.replace(/[^0-9,]/g,''));
-                var obs = "Valor promocional por " + meses + ' ' + mes_ou_meses;
+                var obs = "Valor após " + meses + ' ' + mes_ou_meses +': '+preco_normal;
                 card.find('[data-oferta-obs]').text(obs);
             }
         } else {
