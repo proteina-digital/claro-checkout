@@ -149,6 +149,8 @@ function create_cards(tipo){
 				cc++;
 
 				data_cards.find(".novos-cards-mascara").append(card_clonado.clone());
+
+				card_clonado.find("[data-card-aviso-promo]").remove();
 			}
 
 			var alturaMaxima = 0;
@@ -464,6 +466,8 @@ function create_cards_combo(){
 				cc++;
 
 				data_cards.find(".novos-cards-mascara").append(card_clonado.clone());
+
+				card_clonado.find("[data-card-aviso-promo]").remove();
 
 				preco_tv = 0
 				preco_internet = 0
