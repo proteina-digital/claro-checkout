@@ -207,5 +207,5 @@ Webflow.push(function () {
 
         gerarProdutosSchema();
 
-    }, 4000);
+    }, 1500);
 });
