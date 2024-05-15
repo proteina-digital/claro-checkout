@@ -18,10 +18,10 @@ DBP({
         notSameReferrer: false, // only show if the referrer is not the same domain (user just came in)
 
         onBounce: () => {
-            if (!sessionStorage.getItem('localizacao_pendente') || !sessionStorage.getItem('modalAbandonoJaMostrado')) {
+            if (!sessionStorage.getItem('localizacao_pendente') || !sessionStorage.getItem('naoMostrarModalSaida')) {
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
-                sessionStorage.setItem('modalAbandonoJaMostrado', true);
+                sessionStorage.setItem('naoMostrarModalSaida', true);
                 console.log("MODAL", "A");
             }
         }, // the default onBounce handler
@@ -31,10 +31,10 @@ DBP({
     Webflow.push(function () {
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             $(window).blur(function(){
-              if(!sessionStorage.getItem('localizacao_pendente') || !sessionStorage.getItem('modalAbandonoJaMostrado')) {
+              if(!sessionStorage.getItem('localizacao_pendente') || !sessionStorage.getItem('naoMostrarModalSaida')) {
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
-                sessionStorage.setItem('modalAbandonoJaMostrado', true);
+                sessionStorage.setItem('naoMostrarModalSaida', true);
                 console.log("MODAL", "B");
               }
             });
@@ -55,7 +55,7 @@ DBP({
                                 if(newScroll > $(document).scrollTop() + 250 ) {
                                     $('#modal-abandono').css('display', 'flex');
                                     abandonou = true;
-                                    sessionStorage.setItem('modalAbandonoJaMostrado', true);
+                                    sessionStorage.setItem('naoMostrarModalSaida', true);
                                     console.log("MODAL", "C");
                                 }
                             }, 500)
@@ -67,10 +67,13 @@ DBP({
     
         } else {
             $(document).bind("mouseleave", function(e) {
-                if (e.pageY - $(window).scrollTop() <= 1 && (!sessionStorage.getItem('naoMostrarModalSaida') || !sessionStorage.getItem('modalAbandonoJaMostrado'))) {
+
+                console.log(sessionStorage.getItem('naoMostrarModalSaida'));
+
+                if (e.pageY - $(window).scrollTop() <= 1 && ( !abandonou && !sessionStorage.getItem('naoMostrarModalSaida') )) {
                     $('#modal-abandono').css('display', 'flex');
                     abandonou = true;
-                    sessionStorage.setItem('modalAbandonoJaMostrado', true);
+                    sessionStorage.setItem('naoMostrarModalSaida', true);
                     console.log("MODAL", "D");
                 }
             });
