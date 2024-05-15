@@ -22,7 +22,6 @@ DBP({
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
                 sessionStorage.setItem('naoMostrarModalSaida', true);
-                console.log("MODAL", "A");
             }
         }, // the default onBounce handler
     });
@@ -35,7 +34,6 @@ DBP({
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
                 sessionStorage.setItem('naoMostrarModalSaida', true);
-                console.log("MODAL", "B");
               }
             });
             
@@ -56,7 +54,6 @@ DBP({
                                     $('#modal-abandono').css('display', 'flex');
                                     abandonou = true;
                                     sessionStorage.setItem('naoMostrarModalSaida', true);
-                                    console.log("MODAL", "C");
                                 }
                             }, 500)
                         }
@@ -68,13 +65,11 @@ DBP({
         } else {
             $(document).bind("mouseleave", function(e) {
 
-                console.log(sessionStorage.getItem('naoMostrarModalSaida'));
 
                 if (e.pageY - $(window).scrollTop() <= 1 && ( !abandonou && !sessionStorage.getItem('naoMostrarModalSaida') )) {
                     $('#modal-abandono').css('display', 'flex');
                     abandonou = true;
                     sessionStorage.setItem('naoMostrarModalSaida', true);
-                    console.log("MODAL", "D");
                 }
             });
         }
