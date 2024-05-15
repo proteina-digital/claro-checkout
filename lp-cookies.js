@@ -22,6 +22,7 @@ DBP({
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
                 sessionStorage.setItem('modalAbandonoJaMostrado', true);
+                console.log("MODAL", "A");
             }
         }, // the default onBounce handler
     });
@@ -34,6 +35,7 @@ DBP({
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
                 sessionStorage.setItem('modalAbandonoJaMostrado', true);
+                console.log("MODAL", "B");
               }
             });
             
@@ -54,6 +56,7 @@ DBP({
                                     $('#modal-abandono').css('display', 'flex');
                                     abandonou = true;
                                     sessionStorage.setItem('modalAbandonoJaMostrado', true);
+                                    console.log("MODAL", "C");
                                 }
                             }, 500)
                         }
@@ -68,6 +71,7 @@ DBP({
                     $('#modal-abandono').css('display', 'flex');
                     abandonou = true;
                     sessionStorage.setItem('modalAbandonoJaMostrado', true);
+                    console.log("MODAL", "D");
                 }
             });
         }
