@@ -67,7 +67,7 @@ DBP({
     
         } else {
             $(document).bind("mouseleave", function(e) {
-                if (e.pageY - $(window).scrollTop() <= 1 && abandonou === false && !sessionStorage.getItem('localizacao_pendente') || !sessionStorage.getItem('naoMostrarModalSaida')  || !sessionStorage.getItem('modalAbandonoJaMostrado')) {    
+                if ((e.pageY - $(window).scrollTop() <= 1 && abandonou === false) || !sessionStorage.getItem('localizacao_pendente') || !sessionStorage.getItem('naoMostrarModalSaida')  || !sessionStorage.getItem('modalAbandonoJaMostrado')) {    
                     $('#modal-abandono').css('display', 'flex');
                     abandonou = true;
                     sessionStorage.setItem('modalAbandonoJaMostrado', true);
