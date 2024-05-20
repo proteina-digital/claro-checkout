@@ -175,7 +175,6 @@ Webflow.push(function () {
 
       $('[href^="https://api.whatsapp.com"], [href^="https://whatsapp.escale.com.br"]').each(function (anchor) {
         var $anchor = $(this);
-        console.log($anchor);
         var href = $anchor.attr("href");
         $anchor.attr("href", updateQueryStringParameter(href, "text", text));
       });
