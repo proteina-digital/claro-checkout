@@ -184,7 +184,7 @@ function carrega_card_selecionado() {
     var valor_plano_escolhido_nao_dccfd = sessionStorage.getItem("valor_plano_escolhido_nao_dccfd");
     var id_do_plano = sessionStorage.getItem("id_do_plano");
     var plano_sku = sessionStorage.getItem("plano_sku");
-    $(".dropdown-card-text").text(plano_escolhido);
+    $(".dropdown-card-text").text(plano_escolhido.substring(0, 33) + '...');
     $(".dropdown-card-text-preco").text("R$ " + valor_plano_escolhido);
     $("input[name='plano_escolhido']").val(plano_escolhido);
     $("input[name='valor_plano_escolhido_nao_dccfd']").val(valor_plano_escolhido_nao_dccfd);
