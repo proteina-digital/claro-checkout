@@ -130,8 +130,6 @@ function get_endereco() {
         contentType: 'application/json',
         async: false,
         success: function (dados) {
-            var endereco_fornecido = dados.logradouro + ', ' + numero_viabilidade + ' - ' + cep_viabilidade + ', ' + dados.bairro + ', ' + dados.localidade + ' - ' + dados.uf;
-
             if(!dados.logradouro){
                 dados.logradouro = "Sem Logradouro definido";
             }
@@ -139,6 +137,8 @@ function get_endereco() {
             if(!dados.bairro){
                 dados.bairro = "Sem Bairro";
             }
+
+            var endereco_fornecido = dados.logradouro + ', ' + numero_viabilidade + ' - ' + cep_viabilidade + ', ' + dados.bairro + ', ' + dados.localidade + ' - ' + dados.uf;
 
             sessionStorage.removeItem('endereco_fornecido');
             sessionStorage.setItem('endereco_fornecido', endereco_fornecido);
