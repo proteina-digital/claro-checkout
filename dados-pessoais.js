@@ -131,6 +131,15 @@ function get_endereco() {
         async: false,
         success: function (dados) {
             var endereco_fornecido = dados.logradouro + ', ' + numero_viabilidade + ' - ' + cep_viabilidade + ', ' + dados.bairro + ', ' + dados.localidade + ' - ' + dados.uf;
+
+            if(!dados.logradouro){
+                dados.logradouro = "Sem Logradouro definido";
+            }
+
+            if(!dados.bairro){
+                dados.bairro = "Sem Bairro";
+            }
+
             sessionStorage.removeItem('endereco_fornecido');
             sessionStorage.setItem('endereco_fornecido', endereco_fornecido);
             sessionStorage.setItem('bairro', dados.bairro);
