@@ -50,3 +50,105 @@ function hubspot_lead(telefone){
         }
     });
 }
+
+
+function hubspotQualification(){
+
+    if( !_getCookie('escaleLead') ){
+        return false;
+    }
+
+    $.ajax({
+        url: 'https://formularios.proteina.digital/escale/claro_checkout/hubspot.php',
+        dataType: 'text',
+        type: 'post',
+        contentType: 'application/x-www-form-urlencoded',
+        async: false,
+        data: {
+            lead_id: _getCookie('escaleLead'),
+            action: 'qualification'
+        },
+        success: function(res){
+
+            if (res != 'error') {
+                console.log("Contato Enviado");
+            }else{
+                console.log("Contato não Enviado");
+            }
+
+        }, 
+        error: function(jqxhr, status, exception){
+            console.log(jqxhr);
+            console.log(status);
+            console.log(exception);
+        }
+    });
+}
+
+
+function hubspotSegment(){
+
+    if( !_getCookie('escaleLead') ){
+        return false;
+    }
+
+    $.ajax({
+        url: 'https://formularios.proteina.digital/escale/claro_checkout/hubspot.php',
+        dataType: 'text',
+        type: 'post',
+        contentType: 'application/x-www-form-urlencoded',
+        async: false,
+        data: {
+            lead_id: _getCookie('escaleLead'),
+            action: 'segment'
+        },
+        success: function(res){
+
+            if (res != 'error') {
+                console.log("Contato Enviado");
+            }else{
+                console.log("Contato não Enviado");
+            }
+
+        }, 
+        error: function(jqxhr, status, exception){
+            console.log(jqxhr);
+            console.log(status);
+            console.log(exception);
+        }
+    });
+}
+
+function hubspotViability(address_type_viability){
+
+    if( !_getCookie('escaleLead') ){
+        return false;
+    }
+
+    $.ajax({
+        url: 'https://formularios.proteina.digital/escale/claro_checkout/hubspot.php',
+        dataType: 'text',
+        type: 'post',
+        contentType: 'application/x-www-form-urlencoded',
+        async: false,
+        data: {
+            lead_id: _getCookie('escaleLead'),
+            address_type_viability = address_type_viability;
+            action: 'viability'
+        },
+        success: function(res){
+
+            if (res != 'error') {
+                console.log("Contato Enviado");
+            }else{
+                console.log("Contato não Enviado");
+            }
+
+        }, 
+        error: function(jqxhr, status, exception){
+            console.log(jqxhr);
+            console.log(status);
+            console.log(exception);
+        }
+    });
+}
