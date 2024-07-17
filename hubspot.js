@@ -133,7 +133,7 @@ function hubspotViability(address_type_viability){
         async: false,
         data: {
             lead_id: _getCookie('escaleLead'),
-            address_type_viability: address_type_viability;
+            address_type_viability: address_type_viability,
             action: 'viability'
         },
         success: function(res){
