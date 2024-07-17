@@ -27,10 +27,10 @@ function hubspot_lead(telefone){
             acquisition_midia: acquisition_midia,
             acquisition_campaign: acquisition_campaign,
             acquisition_source: acquisition_source,
-            acquisition_page: null,
+            acquisition_page: location.href,
             acquisition_group: null,
             acquisition_term: acquisition_term,
-            acquisition_domain: null,
+            acquisition_domain: location.protocol+'//'+location.host,
             acquisition_gclid: acquisition_gclid,
             action: 'lead'
         },
