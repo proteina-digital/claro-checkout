@@ -338,4 +338,9 @@ function init_on_clicks() {
     });
 }
 
-$(document).ajaxComplete(function (e, x, config) { if (config.url.indexOf('https://webflow.com/api/v1/form/') !== -1) { window.location.href = site + '/confirmacao' + window.location.search } });
+$(document).ajaxComplete(function (e, x, config) { 
+    if (config.url.indexOf('https://webflow.com/api/v1/form/') !== -1) { 
+        if (typeof hubspotOrder === 'function') { hubspotOrder();}
+        window.location.href = site + '/confirmacao' + window.location.search 
+    } 
+});
