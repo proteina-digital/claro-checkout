@@ -45,6 +45,10 @@ Webflow.push(function() {
         });
     });
 
+    $('input[name="cpf"]').on('blur change', function() {
+        validar_cpf_api($(this));
+    });
+
     form.on("submit", function (e) {
         e.preventDefault(e);
 
@@ -119,6 +123,52 @@ Webflow.push(function() {
     );
 
 });
+
+function validar_cpf_api(cpf){
+
+    if(cpf.val().replace(/[^\d]/g, '').length > 0){
+        if(sessionStorage.getItem('cpf_validacao') != cpf.val().replace(/[^\d]/g, '')){
+            sessionStorage.setItem('cpf_validacao', cpf.val().replace(/[^\d]/g, ''));
+
+            $.ajax({
+                url: 'https://formularios.proteina.digital/escale/validador_cpf.php',
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                async: false,
+                data: {
+                    cpf: cpf.val()
+                },
+                success: function(resposta){
+                    var res = JSON.parse(resposta);
+
+                    if(res.mensagem != "cpf_valido"){
+                        cpf.focus();
+                        cpf.css('border-color', 'red');
+                        sessionStorage.removeItem('cpf_validado');
+                    }else{
+                        sessionStorage.setItem('cpf_validado', true);
+                        cpf.css('border-color', '#ccc');
+                    }
+                }, 
+                error: function(jqxhr, status, exception){
+                    console.log(jqxhr);
+                    console.log(status);
+                    console.log(exception);
+                    sessionStorage.setItem('cpf_validado', true);
+                }
+            });
+
+        }else{
+
+            if( sessionStorage.getItem('cpf_validado') === null ){
+                cpf.focus();
+                cpf.css('border-color', 'red');
+            }
+        }
+    }
+    return true;
+}
 
 function validaCPF(cpf) {
   var Soma = 0
