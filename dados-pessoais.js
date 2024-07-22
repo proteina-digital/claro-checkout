@@ -146,9 +146,11 @@ function validar_cpf_api(cpf){
                         cpf.focus();
                         cpf.css('border-color', 'red');
                         sessionStorage.removeItem('cpf_validado');
+                        cpf.parent().find(".msg-input").css("display","block");
                     }else{
                         sessionStorage.setItem('cpf_validado', true);
                         cpf.css('border-color', '#ccc');
+                        cpf.parent().find(".msg-input").css("display","none");
                     }
                 }, 
                 error: function(jqxhr, status, exception){
