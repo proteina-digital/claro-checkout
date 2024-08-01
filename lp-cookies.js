@@ -49,7 +49,7 @@ Webflow.push(function () {
 
             if (scrollPercent > 20 && !abandonou) {
                 if (newScroll < lastScrollTop) {
-                    if (userScroll - newScroll > 100 || newScroll - userScroll > 200) {
+                    if ((userScroll - newScroll > 100 || newScroll - userScroll > 200) && sessionStorage.getItem('naoMostrarModalSaida') === null) {
                         setTimeout(function() {
                             if (newScroll > $(document).scrollTop() + 250) {
                                 $('#modal-abandono').css('display', 'flex');
