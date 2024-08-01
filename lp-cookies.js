@@ -22,6 +22,7 @@ DBP({
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
                 sessionStorage.setItem('naoMostrarModalSaida', 'true');
+                alert("A");
             }
         }, // the default onBounce handler
     });
@@ -34,6 +35,7 @@ Webflow.push(function () {
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
                 sessionStorage.setItem('naoMostrarModalSaida', 'true');
+                alert("B");
             }
         });
         
@@ -53,6 +55,7 @@ Webflow.push(function () {
                                 $('#modal-abandono').css('display', 'flex');
                                 abandonou = true;
                                 sessionStorage.setItem('naoMostrarModalSaida', 'true');
+                                alert("C");
                             }
                         }, 500);
                     }
@@ -66,7 +69,8 @@ Webflow.push(function () {
             if (e.pageY - $(window).scrollTop() <= 1 && (!abandonou && sessionStorage.getItem('naoMostrarModalSaida') === null)) {
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
-                sessionStorage.setItem('naoMostrarModalSaida', 'true'); // Salve como string
+                sessionStorage.setItem('naoMostrarModalSaida', 'true');
+                alert("D");
             }
         });
     }
