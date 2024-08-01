@@ -18,10 +18,10 @@ DBP({
         notSameReferrer: false, // only show if the referrer is not the same domain (user just came in)
 
         onBounce: () => {
-            if (!sessionStorage.getItem('localizacao_pendente') || sessionStorage.getItem('naoMostrarModalSaida') !== null) {
+            if (!sessionStorage.getItem('localizacao_pendente') || sessionStorage.getItem('naoMostrarModalSaida') === null) {
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
-                sessionStorage.setItem('naoMostrarModalSaida', true);
+                sessionStorage.setItem('naoMostrarModalSaida', 'true');
             }
         }, // the default onBounce handler
     });
@@ -30,10 +30,10 @@ var abandonou = false;
 Webflow.push(function () {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         $(window).blur(function() {
-            if (!sessionStorage.getItem('localizacao_pendente') && sessionStorage.getItem('naoMostrarModalSaida') !== null) {
+            if (!sessionStorage.getItem('localizacao_pendente') && sessionStorage.getItem('naoMostrarModalSaida') === null) {
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
-                sessionStorage.setItem('naoMostrarModalSaida', 'true'); // Salve como string
+                sessionStorage.setItem('naoMostrarModalSaida', 'true');
             }
         });
         
@@ -52,7 +52,7 @@ Webflow.push(function () {
                             if (newScroll > $(document).scrollTop() + 250) {
                                 $('#modal-abandono').css('display', 'flex');
                                 abandonou = true;
-                                sessionStorage.setItem('naoMostrarModalSaida', 'true'); // Salve como string
+                                sessionStorage.setItem('naoMostrarModalSaida', 'true');
                             }
                         }, 500);
                     }
@@ -63,7 +63,7 @@ Webflow.push(function () {
 
     } else {
         $(document).bind("mouseleave", function(e) {
-            if (e.pageY - $(window).scrollTop() <= 1 && (!abandonou && sessionStorage.getItem('naoMostrarModalSaida') !== null)) {
+            if (e.pageY - $(window).scrollTop() <= 1 && (!abandonou && sessionStorage.getItem('naoMostrarModalSaida') === null)) {
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
                 sessionStorage.setItem('naoMostrarModalSaida', 'true'); // Salve como string
