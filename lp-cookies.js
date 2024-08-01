@@ -18,7 +18,7 @@ DBP({
         notSameReferrer: false, // only show if the referrer is not the same domain (user just came in)
 
         onBounce: () => {
-            if (!sessionStorage.getItem('localizacao_pendente') || !sessionStorage.getItem('naoMostrarModalSaida')) {
+            if (!sessionStorage.getItem('localizacao_pendente') || sessionStorage.getItem('naoMostrarModalSaida') !== null) {
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
                 sessionStorage.setItem('naoMostrarModalSaida', true);
@@ -26,55 +26,52 @@ DBP({
         }, // the default onBounce handler
     });
   
-    var abandonou = false;
-    Webflow.push(function () {
-        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            $(window).blur(function(){
-              if(!sessionStorage.getItem('localizacao_pendente') || !sessionStorage.getItem('naoMostrarModalSaida')) {
+var abandonou = false;
+Webflow.push(function () {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        $(window).blur(function() {
+            if (!sessionStorage.getItem('localizacao_pendente') && sessionStorage.getItem('naoMostrarModalSaida') !== null) {
                 $('#modal-abandono').css('display', 'flex');
                 abandonou = true;
-                sessionStorage.setItem('naoMostrarModalSaida', true);
-              }
-            });
-            
-            
-            var pageHeight = $(window).height();
-            var lastScrollTop = 0;
-            var userScroll = $(document).scrollTop();
-    
-            $(window).on('scroll', function () {
-                var newScroll = $(document).scrollTop();
-                var scrollPercent = 100 * newScroll / ($(document).height() - $(window).height());
-    
-                if (scrollPercent > 20 && abandonou === false) {
-                    if (newScroll < lastScrollTop) {
-                        if (userScroll - newScroll > 100 || newScroll - userScroll > 200) {
-                            setTimeout(function() {
-                                if(newScroll > $(document).scrollTop() + 250 ) {
-                                    $('#modal-abandono').css('display', 'flex');
-                                    abandonou = true;
-                                    sessionStorage.setItem('naoMostrarModalSaida', true);
-                                }
-                            }, 500)
-                        }
+                sessionStorage.setItem('naoMostrarModalSaida', 'true'); // Salve como string
+            }
+        });
+        
+        var pageHeight = $(window).height();
+        var lastScrollTop = 0;
+        var userScroll = $(document).scrollTop();
+
+        $(window).on('scroll', function () {
+            var newScroll = $(document).scrollTop();
+            var scrollPercent = 100 * newScroll / ($(document).height() - $(window).height());
+
+            if (scrollPercent > 20 && !abandonou) {
+                if (newScroll < lastScrollTop) {
+                    if (userScroll - newScroll > 100 || newScroll - userScroll > 200) {
+                        setTimeout(function() {
+                            if (newScroll > $(document).scrollTop() + 250) {
+                                $('#modal-abandono').css('display', 'flex');
+                                abandonou = true;
+                                sessionStorage.setItem('naoMostrarModalSaida', 'true'); // Salve como string
+                            }
+                        }, 500);
                     }
                 }
-                lastScrollTop = newScroll;
-            })
-    
-        } else {
-            $(document).bind("mouseleave", function(e) {
+            }
+            lastScrollTop = newScroll;
+        });
 
+    } else {
+        $(document).bind("mouseleave", function(e) {
+            if (e.pageY - $(window).scrollTop() <= 1 && (!abandonou && sessionStorage.getItem('naoMostrarModalSaida') !== null)) {
+                $('#modal-abandono').css('display', 'flex');
+                abandonou = true;
+                sessionStorage.setItem('naoMostrarModalSaida', 'true'); // Salve como string
+            }
+        });
+    }
+});
 
-                if (e.pageY - $(window).scrollTop() <= 1 && ( !abandonou && !sessionStorage.getItem('naoMostrarModalSaida') )) {
-                    $('#modal-abandono').css('display', 'flex');
-                    abandonou = true;
-                    sessionStorage.setItem('naoMostrarModalSaida', true);
-                }
-            });
-        }
-    })
-
-    $('.fecha-abandono').on('click', function() {
-        $('#modal-abandono').hide();
-    })
+$('.fecha-abandono').on('click', function() {
+    $('#modal-abandono').hide();
+});
