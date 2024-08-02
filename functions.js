@@ -741,6 +741,11 @@ function popula_cards_combo_2(catalog){
                 console.log(status);
                 console.log(exception);
                 $("#combo").hide();
+            },
+            complete: function(){
+                if( $(".skeleton").length ){
+                    $(".skeleton").css('display', 'none');
+                }
             }
         });
     }
