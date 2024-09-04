@@ -92,6 +92,10 @@ function hubspotOrder() {
         return false;
     }
 
+    var payment_due_date = sessionStorage.getItem('dia_vencimento') || '';
+    var payment_type_monthly = sessionStorage.getItem('pagamento') || 'dcc';
+    var payment_value_monthly = sessionStorage.getItem('valor_plano_escolhido') || '';
+
     var product_internet_package = '';
     var product_internet_date_scheduling_primary = '';
     var product_internet_date_scheduling_secondary = '';
@@ -113,6 +117,9 @@ function hubspotOrder() {
         product_internet_period_promotional = (plano_internet.promotions && plano_internet.promotions[0] && typeof plano_internet.promotions[0].validity !== 'undefined') ? plano_internet.promotions[0].validity : '';
         product_internet_value_promotional = (plano_internet.promotions && plano_internet.promotions[0] && typeof plano_internet.promotions[0].price !== 'undefined') ? plano_internet.promotions[0].price : '';
         product_internet_value = plano_internet.price || '';
+        if(payment_type_monthly != 'dcc'){
+            product_internet_value = plano_internet.price_nao_dccfd || '';
+        }
     }
 
     var product_tv_package = '';
@@ -136,11 +143,10 @@ function hubspotOrder() {
         product_tv_period_promotional = (plano_tv.promotions && plano_tv.promotions[0] && typeof plano_tv.promotions[0].validity !== 'undefined') ? plano_tv.promotions[0].validity : '';
         product_tv_value_promotional = (plano_tv.promotions && plano_tv.promotions[0] && typeof plano_tv.promotions[0].price !== 'undefined') ? plano_tv.promotions[0].price : '';
         product_tv_value = plano_tv.price || '';
+        if(payment_type_monthly != 'dcc'){
+            product_tv_value = plano_tv.price_nao_dccfd || '';
+        }
     }
-
-    var payment_due_date = sessionStorage.getItem('dia_vencimento') || '';
-    var payment_type_monthly = sessionStorage.getItem('pagamento') || 'dcc';
-    var payment_value_monthly = sessionStorage.getItem('valor_plano_escolhido') || '';
 
     var formdados = JSON.parse(sessionStorage.getItem('formData') || '{}');
 
