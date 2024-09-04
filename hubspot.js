@@ -95,7 +95,10 @@ function hubspotOrder() {
     var payment_due_date = sessionStorage.getItem('dia_vencimento') || '';
     var payment_type_monthly = sessionStorage.getItem('pagamento') || 'dcc';
     var payment_value_monthly = sessionStorage.getItem('valor_plano_escolhido') || '';
-
+    if( payment_type_monthly != 'dcc' ){
+        payment_value_monthly = sessionStorage.getItem('valor_plano_escolhido_nao_dccfd') || '';
+    }
+    
     var product_internet_package = '';
     var product_internet_date_scheduling_primary = '';
     var product_internet_date_scheduling_secondary = '';
