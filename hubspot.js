@@ -138,6 +138,10 @@ function hubspotOrder() {
         product_tv_value = plano_tv.price || '';
     }
 
+    var payment_due_date = sessionStorage.getItem('dia_vencimento') || '';
+    var payment_type_monthly = sessionStorage.getItem('pagamento') || 'dcc';
+    var payment_value_monthly = sessionStorage.getItem('valor_plano_escolhido') || '';
+
     var formdados = JSON.parse(sessionStorage.getItem('formData') || '{}');
 
     $.ajax({
@@ -148,6 +152,9 @@ function hubspotOrder() {
         async: false,
         data: {
             lead_id: _getCookie('escaleLead'),
+            payment_due_date: payment_due_date,
+            payment_type_monthly: payment_type_monthly,
+            payment_value_monthly: payment_value_monthly,
             product_internet_package: product_internet_package,
             product_internet_date_scheduling_primary: product_internet_date_scheduling_primary,
             product_internet_date_scheduling_secondary: product_internet_date_scheduling_secondary,
