@@ -528,3 +528,225 @@ function popula_cards_combo(){
         }
     }
 }
+
+function preco_combo_2(tipo, objetoEncontrado){
+    var preco_sem_desconto = 0;
+    var preco_final = 0;
+    var periodo_oferta = 0;
+
+    if(tipo == "internet"){
+        var preco_internet = objetoEncontrado.internet.price;
+
+        preco_sem_desconto += preco_internet;
+
+        if( objetoEncontrado.internet.digitalPromotion ){
+            var preco_internet = objetoEncontrado.internet.digitalPromotion.period.price;
+            var periodo_preco_internet = objetoEncontrado.internet.digitalPromotion.period.month;
+        }
+
+        preco_final += preco_internet;
+
+        periodo_oferta = periodo_preco_internet;
+
+    }else if(tipo == "tv"){
+        var preco_tv = objetoEncontrado.tv.price;
+
+        preco_sem_desconto += preco_tv;
+
+        if( objetoEncontrado.tv.digitalPromotion ){
+            var preco_tv = objetoEncontrado.tv.digitalPromotion.period.price;
+            var periodo_preco_tv = objetoEncontrado.tv.digitalPromotion.period.month;
+        }
+
+        preco_final += preco_tv;
+        periodo_oferta = periodo_preco_tv;
+
+    }else if(tipo == "celular"){
+        var preco_mobile = objetoEncontrado.mobile.price;
+
+        preco_sem_desconto += preco_mobile;
+
+        if( objetoEncontrado.mobile.digitalPromotion ){
+            var preco_mobile = objetoEncontrado.mobile.digitalPromotion.period.price;
+            var periodo_preco_mobile = objetoEncontrado.mobile.digitalPromotion.period.month;
+        }
+
+        preco_final += preco_mobile;
+        periodo_oferta = periodo_preco_mobile;
+    }else{
+        var preco_fone = objetoEncontrado.fone.price;
+
+        preco_sem_desconto += preco_fone;
+
+        if( objetoEncontrado.fone.digitalPromotion ){
+            var preco_fone = objetoEncontrado.fone.digitalPromotion.period.price;
+            var periodo_preco_fone = objetoEncontrado.fone.digitalPromotion.period.month;
+        }
+
+        preco_final += preco_fone;
+        periodo_oferta = periodo_preco_fone;
+    }
+
+
+    return [preco_final, preco_sem_desconto, periodo_oferta, "tipo:"+tipo];
+}
+
+
+function popula_cards_combo_2(catalog){
+    console.log("testando");
+
+    if(!catalog){
+        return 'sem catalogo';
+    }
+
+    var preco_tv = 0;
+    var preco_internet = 0;
+    var preco_celular = 0;
+    var preco_fixo = 0;
+
+    var preco_tv_sdesconto = 0;
+    var preco_internet_sdesconto = 0;
+    var preco_cel_sdesconto = 0;
+    var preco_fixo_sdesconto = 0;
+
+    var ret_tv = 0;
+    var ret_net = 0;
+    var ret_cel = 0;
+    var ret_tel = 0;
+    var a = 1;
+
+    var cardCombos = [];
+
+    if( jQuery("div[data-card-combo]").length > 0 ){
+
+        console.log("tem combos cards");
+
+        jQuery("div[data-card-combo]").each(function (index, element) {
+            var card = $(this);
+            var card_prod_id = card.attr("data-card-combo");
+
+            cardCombos.push(card_prod_id);
+        });
+
+        console.log("cardCombos", cardCombos);
+
+        // AJAX AQUI
+        $.ajax({
+            url: 'https://formularios.proteina.digital/escale/claro_checkout/selecoes.php',
+            type:"POST",
+            timeout: 10000,
+            contentType: "application/json",
+            data: JSON.stringify({catalog: catalog, selecao: cardCombos}),
+            success: function(response) {
+                if( response.length > 0 ){
+                    $("#combo").show();
+    
+                    jQuery("div[data-card-combo]").each(function (index, element) {
+                        var card = $(this);
+                        var card_prod_id = card.attr("data-card-combo");
+        
+                        var tempo_desconto = 0;
+        
+                        var ids = formata_combos(card_prod_id);
+        
+                        var selecao_combo = response.find(function(item) {
+                            return item.idCombo === card_prod_id;
+                        });
+        
+                        if(!selecao_combo){
+                            card.parent().hide();
+                            Webflow.require('slider').redraw();
+                        }else{
+                            card.parent().show();
+                            Webflow.require('slider').redraw();
+        
+                            if(ids[0] != 0){
+                                ret_tv = preco_combo_2("tv", selecao_combo);
+                                preco_tv = ret_tv[0];
+                                preco_tv_sdesconto = ret_tv[1];
+        
+                                if(ret_tv[2] != 0){
+                                    tempo_desconto = ret_tv[2];
+                                }else{
+                                    preco_tv_sdesconto = preco_tv;
+                                }
+                            }
+        
+                            if(ids[1] != 0){
+                                ret_net = preco_combo_2("internet", selecao_combo);
+                                preco_internet = ret_net[0];
+                                preco_internet_sdesconto = ret_net[1];
+        
+                                if(ret_net[2] != 0){
+                                    tempo_desconto = ret_net[2];
+                                }else{
+                                    preco_internet_sdesconto = preco_internet;
+                                }
+                            }
+        
+                            if(ids[2] != 0){
+                                ret_tel = preco_combo_2("fone", selecao_combo);
+                                preco_fixo = ret_tel[0];
+                                preco_fixo_sdesconto = ret_tel[1];
+        
+                                if(ret_tel[2] != 0){
+                                    tempo_desconto = ret_tel[2];
+                                }else{
+                                    preco_fixo_sdesconto = preco_fixo;
+                                }
+                            }
+        
+                            if(ids[3] != 0){
+                                ret_cel = preco_combo_2("celular", selecao_combo);
+                                preco_celular = ret_cel[0];
+                                preco_cel_sdesconto = ret_cel[1];
+        
+                                if(ret_cel[2] != 0){
+                                    tempo_desconto = ret_cel[2];
+                                }else{
+                                    preco_cel_sdesconto = preco_celular;
+                                }
+                            }
+                            
+                            card.find("[data-card-preco]").text(formatarValor(preco_tv + preco_internet + preco_celular + preco_fixo));
+        
+                            if(tempo_desconto > 0){
+                                if(tempo_desconto > 1){
+                                    var msg_tempo_desconto = 'nos '+tempo_desconto+' primeiros meses';
+                                }else{
+                                    var msg_tempo_desconto = 'no '+tempo_desconto+' primeiro mês';
+                                }
+            
+                                var valor_final_sem_desconto = preco_tv_sdesconto + preco_internet_sdesconto + preco_cel_sdesconto + preco_fixo_sdesconto;
+            
+                                if(card.find(".aviso-plano").length > 0){
+                                    card.find(".aviso-plano").html('<span data-combo-periodo="">'+msg_tempo_desconto+'</span><br>valor a partir do <span data-combo-periodo-numero="">'+parseInt(tempo_desconto+1)+'</span>º mês: <span data-combo-periodo-apos="">'+formatarValor(valor_final_sem_desconto)+'</span>');
+                                }else{
+                                    card.find(".div-block-26").append('<div class="aviso-plano"><span data-combo-periodo="">'+msg_tempo_desconto+'</span><br>valor a partir do <span data-combo-periodo-numero="">'+parseInt(tempo_desconto+1)+'</span>º mês: <span data-combo-periodo-apos="">'+formatarValor(valor_final_sem_desconto)+'</span></div>');
+                                }       
+                            }
+        
+                            preco_tv = 0
+                            preco_internet = 0
+                            preco_celular = 0
+                            preco_fixo = 0
+                        }
+        
+                        a++;
+                    });
+                }
+            },
+            error: function(jqxhr, status, exception){
+                console.log(jqxhr);
+                console.log(status);
+                console.log(exception);
+                $("#combo").hide();
+            },
+            complete: function(){
+                if( $(".skeleton").length ){
+                    $(".skeleton").css('display', 'none');
+                }
+            }
+        });
+    }
+}
