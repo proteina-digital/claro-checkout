@@ -632,7 +632,7 @@ function popula_cards_combo_2(catalog){
 
         // AJAX AQUI
         $.ajax({
-            url: 'https://formularios.proteina.digital/escale/claro_checkout/selecoes.php',
+            url: 'https://proteina.escale.com.br/escale/claro_checkout/selecoes.php',
             type:"POST",
             timeout: 10000,
             contentType: "application/json",
